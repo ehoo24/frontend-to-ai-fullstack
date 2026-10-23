@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 10 章 受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制 | 前端转 AI 全栈路线</title>
+  <link rel="stylesheet" href="../assets/juejin.css">
+  <!-- 引入 Mermaid 渲染架构流程图 -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <!-- 引入交互脚本: Mac代码框、一键复制、文章目录滚动高亮、左侧章节联动 -->
+  <script defer src="../assets/juejin.js"></script>
+</head>
+<body>
+  <!-- 顶部导航条 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-brand">
+        <span class="brand-badge">课程专栏</span>
+        <span>前端转 AI 全栈：从交互体验到生产级交付</span>
+      </a>
+      <div class="navbar-actions">
+        <a href="../index.html">返回课程总览 📚</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主布局 (三栏布局: 左侧专栏目录 + 中间正文 + 右侧本章目录) -->
+  <div class="layout-container">
+    <!-- 1. 左侧专栏章节导航 -->
+    
+    <aside class="chapters-sidebar">
+      <div class="chapters-sidebar-header">
+        <span>📚 专栏章节导航</span>
+        <span class="chapters-count-badge">12 讲全</span>
+      </div>
+      <nav class="chapters-nav-scroll" aria-label="课程章节列表">
+        
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块一：认知重塑与工程基石</div>
+        
+          <a href="./01-mindset-and-fullstack-boundary.html" class="chapter-nav-item " title="认知重塑：为什么会调用 API 不等于 AI 全栈">
+            <span class="chapter-num">01</span>
+            <span class="chapter-title-text">认知重塑：为什么会调用 API 不等于 AI 全栈</span>
+            
+          </a>
+        
+          <a href="./02-fastify-rest-and-contract.html" class="chapter-nav-item " title="服务端工程基石：REST 规范、参数校验与端到端类型契约">
+            <span class="chapter-num">02</span>
+            <span class="chapter-title-text">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块二：后端工程与核心存储</div>
+        
+          <a href="./03-postgresql-modeling-and-pgvector.html" class="chapter-nav-item " title="核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展">
+            <span class="chapter-num">03</span>
+            <span class="chapter-title-text">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./04-redis-cache-ratelimit-and-queue.html" class="chapter-nav-item " title="高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列">
+            <span class="chapter-num">04</span>
+            <span class="chapter-title-text">高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</span>
+            
+          </a>
+        
+          <a href="./05-auth-rbac-and-security.html" class="chapter-nav-item " title="生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御">
+            <span class="chapter-num">05</span>
+            <span class="chapter-title-text">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块三：生产级 LLM 应用开发</div>
+        
+          <a href="./06-streaming-sse-and-llm-gateway.html" class="chapter-nav-item " title="生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关">
+            <span class="chapter-num">06</span>
+            <span class="chapter-title-text">生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./07-structured-output-and-tool-calling.html" class="chapter-nav-item " title="结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环">
+            <span class="chapter-num">07</span>
+            <span class="chapter-title-text">结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块四：企业级 RAG 架构与评测</div>
+        
+          <a href="./08-enterprise-rag-pipeline.html" class="chapter-nav-item " title="工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离">
+            <span class="chapter-num">08</span>
+            <span class="chapter-title-text">工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./09-rag-evaluation-and-cost-observability.html" class="chapter-nav-item " title="从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性">
+            <span class="chapter-num">09</span>
+            <span class="chapter-title-text">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块五：受控 Agent 与生产运维</div>
+        
+          <a href="./10-controlled-agent-and-human-in-the-loop.html" class="chapter-nav-item active" title="受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制">
+            <span class="chapter-num">10</span>
+            <span class="chapter-title-text">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            
+          </a>
+        
+          <a href="./11-docker-cicd-and-reliability.html" class="chapter-nav-item " title="容器化交付、CI/CD 自动化部署与生产环境故障复盘">
+            <span class="chapter-num">11</span>
+            <span class="chapter-title-text">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块六：企业级微服务协同</div>
+        
+          <a href="./12-java-spring-cloud-collaboration.html" class="chapter-nav-item " title="企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用">
+            <span class="chapter-num">12</span>
+            <span class="chapter-title-text">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            
+          </a>
+        
+      </div>
+    
+    <div class="chapter-group">
+      <div class="chapter-group-title">配套参考与手册</div>
+      
+        <a href="../reference/glossary.html" class="chapter-nav-item " title="前端转 AI 全栈核心术语速查表">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">前端转 AI 全栈核心术语速查表</span>
+        </a>
+      
+        <a href="../reference/checklist.html" class="chapter-nav-item " title="生产上线前检查清单与排错速查">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">生产上线前检查清单与排错速查</span>
+        </a>
+      
+    </div>
+  
+      </nav>
+    </aside>
+  
+
+    <!-- 2. 中间核心正文卡片 -->
+    <main class="article-main">
+      <header class="article-header">
+        <div class="article-category">
+          <span>📖 第 10 核心实战章节</span>
+        </div>
+        <h1 class="article-title">第 10 章 受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</h1>
+        <div class="article-meta">
+          <div class="author-info">
+            <span class="author-avatar">AI</span>
+            <span>全栈技术教练</span>
+          </div>
+          <span>•</span>
+          <span>⏱️ 预计学习：90–115 分钟</span>
+          <span>•</span>
+          <span>📝 约 5753 字</span>
+          <span>•</span>
+          <span>🏷️ 生产级落地标准</span>
+        </div>
+      </header>
+
+      <!-- 一句话要点卡片 -->
+      <aside class="article-summary-card">
+        <strong>💡 本章核心要点：</strong>完全自由放飞的“自主智能体（Autonomous Agent）”在企业级场景中是灾难的代名词；真正能落地的生产级 Agent，必须由严格的有限状态机驱动，并对关键破坏性行为设置坚固的“人机协同（Human-in-the-Loop）”审核闸门。
+      </aside>
+
+      <!-- 文章正文区域 -->
+      <article class="markdown-body">
+        <hr>
+<h2 id="自主智能体的幻灭-企业绝不敢给模型-完全自由">自主智能体的幻灭：企业绝不敢给模型“完全自由”</h2><p>在开源社区中，像 AutoGPT 这种“给大模型一个目标，让它自己无限拆解任务并自主调用工具”的演示项目一度非常火爆。然而，任何一个有理性的企业架构师，都绝不敢在生产环境中直接运行这种未受控的 Agent：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+  User["用户输入目标:\n'请帮我优化知识库并清理陈旧数据'"] --> UncontrolledAgent["未受控自主 Agent (完全放飞模式)"]
+  UncontrolledAgent --> Loop["死循环陷阱:\n陷入逻辑怪圈，往复自问自答，几小时跑掉数千美元 Token"]
+  UncontrolledAgent --> Hallucination["幻觉误判:\n将核心生产业务表识别为'无用测试数据'"]
+  UncontrolledAgent --> Catastrophe["灾难落地:\n自主调用 DROP TABLE 或批量删除文档，造成无法挽回的真实数据丢失！"]
+  style Catastrophe fill:#f99,stroke:#333,stroke-width:2px</pre></div><p>在真实企业业务中，<strong>稳定性、可预测性与法律合规永远高于所谓的“自主性”</strong>。</p>
+<hr>
+<h2 id="受控架构核心-有限状态机-fsm-与最大步数熔断">受控架构核心：有限状态机 (FSM) 与最大步数熔断</h2><p>生产级业务 Agent 必须基于**有限状态机（Finite State Machine）**构建，每一步转移都有严格的状态定义与熔断机制：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">stateDiagram-v2
+  [*] --> IDLE : 接收用户任务
+  IDLE --> PLANNING : 解析意图并生成执行计划
+  
+  PLANNING --> EXECUTING_TOOL : 意图匹配，选择白名单工具
+  PLANNING --> RESPONDING : 无需工具，直接生成回答
+  
+  EXECUTING_TOOL --> EVALUATING : 工具执行成功，分析返回数据
+  EXECUTING_TOOL --> ERROR_FALLBACK : 工具调用超时或抛错
+  
+  EVALUATING --> RESPONDING : 信息充分，达到最终目标
+  EVALUATING --> EXECUTING_TOOL : 信息不足，进入下一步 (受限于 max_steps <= 5)
+  EVALUATING --> SUSPENDED_WAITING_HUMAN : 命中了高风险工具！状态机挂起，等待人工审核！
+  
+  SUSPENDED_WAITING_HUMAN --> EXECUTING_TOOL : 人工审核批准 (携带安全签名)
+  SUSPENDED_WAITING_HUMAN --> RESPONDING : 人工审核拒绝，优雅告知用户理由
+  
+  ERROR_FALLBACK --> RESPONDING : 降级兜底回复
+  RESPONDING --> [*] : 交付结果并持久化审计日志</pre></div><h3 id="生产级-agent-的三重安全铁律">生产级 Agent 的三重安全铁律</h3><ol>
+<li><strong>步数硬上限（Hard Step Bound）</strong>：无论模型认为自己还需做多少步，单次任务的最大步数强制锁定（如 <code>max_steps = 5</code>），超过 5 步强制退出，杜绝死循环消耗。</li>
+<li><strong>总时间熔断（Timeout Bound）</strong>：单次任务全链路执行时间不得超过 30 秒，超限立即挂起并保存现场。</li>
+<li><strong>工具权限分级白名单（Tool Tiering）</strong>：绝不给模型任意执行系统命令（如 bash/eval）的权限，所有工具必须在代码中显式静态注册。</li>
+</ol>
+<hr>
+<h2 id="工具权限三级白名单设计">工具权限三级白名单设计</h2><div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+  Tools["Agent 可用工具库"]
+  Tools --> T1["级别 1: 安全只读 (Read-Only)\n知识库检索、查询订单状态、查询排班\n【机制】模型可全自动自主调用执行"]
+  Tools --> T2["级别 2: 幂等写入 (Idempotent Write)\n记录个人便签、更新非核心资料、发送通知\n【机制】强 Schema 校验，服务端自动防重"]
+  Tools --> T3["级别 3: 高危破坏性 (Destructive)\n退款转账、删除文档、批量修改权限、重启服务\n【机制】强制挂起！必须人工在界面确认后方可执行！"]
+  style T3 fill:#fbb,stroke:#333,stroke-width:2px</pre></div><hr>
+<h2 id="人机协同-human-in-the-loop-审核中继实战">人机协同 (Human-in-the-Loop) 审核中继实战</h2><p>当 Agent 规划出需要调用**级别 3（高危工具）**时，系统必须将整个执行现场序列化保存到数据库，并在前端界面弹出一张结构化的“<strong>审核确认卡片（Approval Card）</strong>”。</p>
+<h3 id="1-挂起与状态持久化实现">1. 挂起与状态持久化实现</h3><pre><code class="language-typescript">import { dbPool } from &quot;../db&quot;;
+
+export interface AgentExecutionState {
+  taskId: string;
+  userId: string;
+  currentStep: number;
+  pendingToolCall: {
+    toolName: string;
+    toolArgs: any;
+    riskLevel: &quot;HIGH&quot; | &quot;CRITICAL&quot;;
+    humanReadablePrompt: string; // 翻译给人类看的操作摘要
+  };
+  messagesSnapshot: any[];
+}
+
+export async function suspendAgentForApproval(state: AgentExecutionState) {
+  // 1. 将执行快照序列化持久化至 PostgreSQL
+  await dbPool.query(
+    `INSERT INTO agent_tasks (
+       id, user_id, status, step, pending_tool, state_payload, created_at
+     ) VALUES ($1, $2, &#039;PENDING_APPROVAL&#039;, $3, $4, $5, NOW())
+     ON CONFLICT (id) DO UPDATE 
+     SET status = &#039;PENDING_APPROVAL&#039;, state_payload = $5`,
+    [
+      state.taskId,
+      state.userId,
+      state.currentStep,
+      state.pendingToolCall.toolName,
+      JSON.stringify(state),
+    ]
+  );
+
+  // 2. 向前端推送 SSE 事件或 WebSocket 通知，通知前端弹出审核卡片
+  return {
+    status: &quot;SUSPENDED&quot;,
+    approvalCard: {
+      taskId: state.taskId,
+      action: state.pendingToolCall.humanReadablePrompt,
+      toolArgs: state.pendingToolCall.toolArgs,
+      warning: &quot;此操作具有不可逆的破坏性，请仔细核对参数后确认执行！&quot;,
+    },
+  };
+}</code></pre><h3 id="2-人工审批决策中继接口">2. 人工审批决策中继接口</h3><p>当操作人员（如知识库管理员）在前端审查了操作详情并点击“确认批准”或“驳回”后，服务端唤醒被挂起的任务：</p>
+<pre><code class="language-typescript">export async function resumeAgentTask(
+  taskId: string,
+  reviewerId: string,
+  decision: &quot;APPROVED&quot; | &quot;REJECTED&quot;,
+  rejectReason?: string
+) {
+  // 1. 读取挂起的执行快照
+  const res = await dbPool.query(
+    `SELECT state_payload FROM agent_tasks 
+     WHERE id = $1 AND status = &#039;PENDING_APPROVAL&#039; FOR UPDATE`,
+    [taskId]
+  );
+
+  if (res.rows.length === 0) {
+    throw new Error(&quot;任务不存在或已被处理&quot;);
+  }
+
+  const state: AgentExecutionState = JSON.parse(res.rows[0].state_payload);
+
+  if (decision === &quot;REJECTED&quot;) {
+    // 人工拒绝：将拒绝理由作为 tool 的返回值回填给上下文
+    state.messagesSnapshot.push({
+      role: &quot;tool&quot;,
+      content: JSON.stringify({
+        status: &quot;REJECTED_BY_HUMAN&quot;,
+        reason: rejectReason || &quot;操作被管理员人工拒绝&quot;,
+      }),
+    });
+
+    // 唤醒模型，让模型优雅告知用户为何被驳回
+    return await continueAgentLoop(state);
+  }
+
+  // 人工批准：真正执行该高危本地函数！
+  const executionOutput = await executeDestructiveTool(
+    state.pendingToolCall.toolName,
+    state.pendingToolCall.toolArgs,
+    reviewerId
+  );
+
+  state.messagesSnapshot.push({
+    role: &quot;tool&quot;,
+    content: JSON.stringify(executionOutput),
+  });
+
+  // 更新任务状态为进行中，并继续完成后续流程
+  await dbPool.query(&quot;UPDATE agent_tasks SET status = &#039;EXECUTING&#039; WHERE id = $1&quot;, [taskId]);
+  return await continueAgentLoop(state);
+}</code></pre><hr>
+<h2 id="执行轨迹可视化-让思考过程-完全透明">执行轨迹可视化：让思考过程“完全透明”</h2><p>生产级系统的另一个核心要求是<strong>可解释性（Explainability）</strong>。前端绝不能把 Agent 当成黑盒子，必须向用户清晰呈现三要素：</p>
+<ul>
+<li><strong>Thought（思考）</strong>：模型当前正在分析什么、遇到了什么疑难；</li>
+<li><strong>Action（行动）</strong>：模型正在调用哪个工具，传递了什么参数；</li>
+<li><strong>Observation（观察）</strong>：工具真实返回了什么数据。</li>
+</ul>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+  subgraph 前端轨迹折叠面板 (Trace Accordion)
+    T1["🤔 思考中: 用户询问上月报销单状态，我需要先根据当前用户 ID 查询单据列表..."]
+    A1["⚡ 正在调用工具: listReimbursementTickets({ status: 'ALL', limit: 5 })"]
+    O1["👁️ 工具返回: 找到 1 笔单据 (ID: RB-2026-901, 待部门总监审批)"]
+    T2["🤔 思考中: 单据处于待审批状态，我将向用户说明该单据的具体审批进度及预计耗时..."]
+  end
+  O1 --> T2</pre></div><hr>
+<h2 id="边界误区与排错清单">边界误区与排错清单</h2><h3 id="1-致命误区">1. 致命误区</h3><ul>
+<li><strong>审核 Token 被伪造篡改</strong>：前端在提交“确认批准”请求时，攻击者伪造审核员身份直接跳过审核。审核接口必须有严格的独立权限校验，并在审计表中记录操作人的 <code>reviewer_id</code> 与时间戳。</li>
+<li><strong>状态快照未加锁导致并发重复唤醒</strong>：两个审核员同时在网页点击了批准，导致后台重复执行了两次敏感操作（如两次退款）。必须使用 <code>SELECT ... FOR UPDATE</code> 悲观锁将状态从 <code>PENDING_APPROVAL</code> 原子性改为 <code>EXECUTING</code>。</li>
+</ul>
+<h3 id="2-受控-agent-自检表">2. 受控 Agent 自检表</h3><ul>
+<li><input disabled="" type="checkbox"> Agent 执行循环中是否设置了硬性的 <code>max_steps &lt;= 5</code> 保护？</li>
+<li><input disabled="" type="checkbox"> 涉及删除、退款、全局权限变更等高危工具，是否均标记为级别 3 并强制挂起？</li>
+<li><input disabled="" type="checkbox"> 挂起状态是否已持久化到数据库，即使 Node.js 服务重启也能安全恢复？</li>
+<li><input disabled="" type="checkbox"> 前端界面是否具备直观的执行步骤与工具调用轨迹折叠组件？</li>
+</ul>
+<hr>
+<h2 id="课后迁移实践任务">课后迁移实践任务</h2><ol>
+<li><strong>审核拦截演练</strong>：为系统注册一个名为 <code>deleteKnowledgeDocument(docId)</code> 的高危工具。在聊天窗口输入“帮我把文档 DOC-99 删除掉”。</li>
+<li><strong>断言验证</strong>：验证接口没有直接执行物理删除，而是返回了 <code>SUSPENDED_WAITING_HUMAN</code> 状态，并在控制台输出了等待审批卡片；模拟调用批准接口后，文档才被真正从数据库中移除。</li>
+</ol>
+
+      </article>
+
+      <!-- 底部上下章导航 -->
+      
+    <nav class="article-nav-pager" aria-label="文章上下导航">
+      <a href="./09-rag-evaluation-and-cost-observability.html" class="pager-btn prev">
+              <span class="pager-label">◀ 上一章</span>
+              <span class="pager-title">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            </a>
+      <a href="./11-docker-cicd-and-reliability.html" class="pager-btn next">
+              <span class="pager-label">下一章 ▶</span>
+              <span class="pager-title">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            </a>
+    </nav>
+  
+    </main>
+
+    <!-- 3. 右侧本章目录 (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-header">
+        <span>📑</span>
+        <span>本章目录</span>
+      </div>
+      <ul class="toc-list">
+        <!-- 由 juejin.js 自动根据文章内 h2, h3 提取并生成 -->
+      </ul>
+    </aside>
+  </div>
+</body>
+</html>

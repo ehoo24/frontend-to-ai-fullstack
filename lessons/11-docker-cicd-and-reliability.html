@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 11 章 容器化交付、CI/CD 自动化部署与生产环境故障复盘 | 前端转 AI 全栈路线</title>
+  <link rel="stylesheet" href="../assets/juejin.css">
+  <!-- 引入 Mermaid 渲染架构流程图 -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <!-- 引入交互脚本: Mac代码框、一键复制、文章目录滚动高亮、左侧章节联动 -->
+  <script defer src="../assets/juejin.js"></script>
+</head>
+<body>
+  <!-- 顶部导航条 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-brand">
+        <span class="brand-badge">课程专栏</span>
+        <span>前端转 AI 全栈：从交互体验到生产级交付</span>
+      </a>
+      <div class="navbar-actions">
+        <a href="../index.html">返回课程总览 📚</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主布局 (三栏布局: 左侧专栏目录 + 中间正文 + 右侧本章目录) -->
+  <div class="layout-container">
+    <!-- 1. 左侧专栏章节导航 -->
+    
+    <aside class="chapters-sidebar">
+      <div class="chapters-sidebar-header">
+        <span>📚 专栏章节导航</span>
+        <span class="chapters-count-badge">12 讲全</span>
+      </div>
+      <nav class="chapters-nav-scroll" aria-label="课程章节列表">
+        
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块一：认知重塑与工程基石</div>
+        
+          <a href="./01-mindset-and-fullstack-boundary.html" class="chapter-nav-item " title="认知重塑：为什么会调用 API 不等于 AI 全栈">
+            <span class="chapter-num">01</span>
+            <span class="chapter-title-text">认知重塑：为什么会调用 API 不等于 AI 全栈</span>
+            
+          </a>
+        
+          <a href="./02-fastify-rest-and-contract.html" class="chapter-nav-item " title="服务端工程基石：REST 规范、参数校验与端到端类型契约">
+            <span class="chapter-num">02</span>
+            <span class="chapter-title-text">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块二：后端工程与核心存储</div>
+        
+          <a href="./03-postgresql-modeling-and-pgvector.html" class="chapter-nav-item " title="核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展">
+            <span class="chapter-num">03</span>
+            <span class="chapter-title-text">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./04-redis-cache-ratelimit-and-queue.html" class="chapter-nav-item " title="高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列">
+            <span class="chapter-num">04</span>
+            <span class="chapter-title-text">高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</span>
+            
+          </a>
+        
+          <a href="./05-auth-rbac-and-security.html" class="chapter-nav-item " title="生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御">
+            <span class="chapter-num">05</span>
+            <span class="chapter-title-text">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块三：生产级 LLM 应用开发</div>
+        
+          <a href="./06-streaming-sse-and-llm-gateway.html" class="chapter-nav-item " title="生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关">
+            <span class="chapter-num">06</span>
+            <span class="chapter-title-text">生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./07-structured-output-and-tool-calling.html" class="chapter-nav-item " title="结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环">
+            <span class="chapter-num">07</span>
+            <span class="chapter-title-text">结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块四：企业级 RAG 架构与评测</div>
+        
+          <a href="./08-enterprise-rag-pipeline.html" class="chapter-nav-item " title="工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离">
+            <span class="chapter-num">08</span>
+            <span class="chapter-title-text">工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./09-rag-evaluation-and-cost-observability.html" class="chapter-nav-item " title="从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性">
+            <span class="chapter-num">09</span>
+            <span class="chapter-title-text">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块五：受控 Agent 与生产运维</div>
+        
+          <a href="./10-controlled-agent-and-human-in-the-loop.html" class="chapter-nav-item " title="受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制">
+            <span class="chapter-num">10</span>
+            <span class="chapter-title-text">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            
+          </a>
+        
+          <a href="./11-docker-cicd-and-reliability.html" class="chapter-nav-item active" title="容器化交付、CI/CD 自动化部署与生产环境故障复盘">
+            <span class="chapter-num">11</span>
+            <span class="chapter-title-text">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块六：企业级微服务协同</div>
+        
+          <a href="./12-java-spring-cloud-collaboration.html" class="chapter-nav-item " title="企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用">
+            <span class="chapter-num">12</span>
+            <span class="chapter-title-text">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            
+          </a>
+        
+      </div>
+    
+    <div class="chapter-group">
+      <div class="chapter-group-title">配套参考与手册</div>
+      
+        <a href="../reference/glossary.html" class="chapter-nav-item " title="前端转 AI 全栈核心术语速查表">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">前端转 AI 全栈核心术语速查表</span>
+        </a>
+      
+        <a href="../reference/checklist.html" class="chapter-nav-item " title="生产上线前检查清单与排错速查">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">生产上线前检查清单与排错速查</span>
+        </a>
+      
+    </div>
+  
+      </nav>
+    </aside>
+  
+
+    <!-- 2. 中间核心正文卡片 -->
+    <main class="article-main">
+      <header class="article-header">
+        <div class="article-category">
+          <span>📖 第 11 核心实战章节</span>
+        </div>
+        <h1 class="article-title">第 11 章 容器化交付、CI/CD 自动化部署与生产环境故障复盘</h1>
+        <div class="article-meta">
+          <div class="author-info">
+            <span class="author-avatar">AI</span>
+            <span>全栈技术教练</span>
+          </div>
+          <span>•</span>
+          <span>⏱️ 预计学习：85–105 分钟</span>
+          <span>•</span>
+          <span>📝 约 7688 字</span>
+          <span>•</span>
+          <span>🏷️ 生产级落地标准</span>
+        </div>
+      </header>
+
+      <!-- 一句话要点卡片 -->
+      <aside class="article-summary-card">
+        <strong>💡 本章核心要点：</strong>“在我电脑上是好的”在软件工程中没有任何价值；用多阶段 Docker 固化可重复的运行环境，用 CI/CD 流水线守住质量底线，并具备在生产事故后撰写严密复盘（Post-mortem）的专业工程素养。
+      </aside>
+
+      <!-- 文章正文区域 -->
+      <article class="markdown-body">
+        <hr>
+<h2 id="交付痛点-从-本地能跑-到-生产可用-的巨大鸿沟">交付痛点：从“本地能跑”到“生产可用”的巨大鸿沟</h2><p>许多转型开发者在本地电脑调试 AI 应用非常顺利，但一旦尝试往云服务器部署，往往遭遇各种“水土不服”：</p>
+<ul>
+<li><strong>环境差异引发崩溃</strong>：本地是 macOS/Windows 开发机，线上是 Linux Alpine/Debian 服务器；某些 Node.js 原生 C++ 扩展（如部分分词器或向量计算库）在线上构建直接报错。</li>
+<li><strong>镜像体积臃肿不堪</strong>：把整个开发环境打包成 Docker 镜像，里面塞满了 <code>node_modules</code>、开发依赖（TypeScript、Webpack、测试库）、源码和构建缓存，一个单体镜像体积高达 <strong>1.5GB 甚至 2GB</strong>，导致镜像拉取耗时数分钟，严重拖慢自动扩缩容。</li>
+<li><strong>安全漏洞裸奔</strong>：直接使用默认的 <code>root</code> 用户在容器内运行进程，黑客一旦通过注入漏洞拿到 Web 权限，就直接获得了宿主机的 Root 提权漏洞（容器逃逸）。</li>
+</ul>
+<hr>
+<h2 id="生产级多阶段-docker-构建-multi-stage-builds">生产级多阶段 Docker 构建 (Multi-Stage Builds)</h2><p>利用 Docker 的<strong>多阶段构建</strong>技术，我们将“源码编译阶段”与“生产运行阶段”彻底物理隔离：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+  subgraph Stage1: 构建编译阶段 (Builder Stage)
+    Base1["node:20-alpine 镜像"] --> InstallAll["安装全量依赖 (含 devDependencies)"]
+    InstallAll --> CompileTS["tsc 编译 TypeScript -> 原生 JS"]
+    CompileTS --> Prune["移除所有开发依赖 (仅留生产所需)"]
+  end
+
+  subgraph Stage2: 最终极简生产镜像 (Production Stage)
+    Base2["node:20-alpine 纯净基础镜像"] --> CopyDist["仅复制编译后的 dist/ 目录"]
+    CopyDist --> CopyProdModules["仅复制精简后的 node_modules"]
+    CopyProdModules --> NonRoot["切换至普通非 root 用户 (node)"]
+    NonRoot --> FinalImage["最终轻量镜像 (仅 ~120MB)"]
+  end
+
+  Stage1 -- "COPY --from=builder" --> Stage2</pre></div><h3 id="生产级-dockerfile-编写实战">生产级 Dockerfile 编写实战</h3><pre><code class="language-dockerfile"># ==========================================
+# 阶段 1: 依赖安装与 TypeScript 编译
+# ==========================================
+FROM node:20-alpine AS builder
+
+WORKDIR /app
+
+# 安装必要的编译原生模块工具
+RUN apk add --no-cache python3 make g++
+
+# 优先只复制依赖清单，最大化利用 Docker 构建缓存
+COPY package.json package-lock.json ./
+RUN npm ci
+
+# 复制业务源码并执行生产构建
+COPY tsconfig.json ./
+COPY src/ ./src/
+RUN npm run build
+
+# 剔除 devDependencies，仅保留生产运行时依赖
+RUN npm prune --production
+
+# ==========================================
+# 阶段 2: 极致轻量的生产运行镜像
+# ==========================================
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+ENV PORT=3000
+
+# 安全第一：使用官方内置的非特权用户 node，杜绝容器逃逸
+USER node
+
+# 从 builder 阶段按需抓取产物
+COPY --chown=node:node --from=builder /app/package.json ./
+COPY --chown=node:node --from=builder /app/node_modules ./node_modules
+COPY --chown=node:node --from=builder /app/dist ./dist
+
+# 声明端口
+EXPOSE 3000
+
+# 配置容器健康检查指令
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/healthz || exit 1
+
+# 启动服务端应用
+CMD [&quot;node&quot;, &quot;dist/index.js&quot;]</code></pre><hr>
+<h2 id="一键本地生产模拟-docker-compose-编排">一键本地生产模拟：Docker Compose 编排</h2><p>在本地同时拉起 <strong>Fastify 业务网关 + PostgreSQL 16 (集成 pgvector) + Redis 7</strong>：</p>
+<pre><code class="language-yaml">version: &quot;3.8&quot;
+
+services:
+  # 1. AI 全栈业务网关
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: copilot_app
+    restart: always
+    ports:
+      - &quot;3000:3000&quot;
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=postgres://copilot_user:copilot_pass@postgres:5432/copilot_db
+      - REDIS_URL=redis://redis:6379
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+
+  # 2. 关系与向量存储引擎 (PostgreSQL 16 + pgvector)
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: copilot_postgres
+    restart: always
+    environment:
+      POSTGRES_USER: copilot_user
+      POSTGRES_PASSWORD: copilot_pass
+      POSTGRES_DB: copilot_db
+    ports:
+      - &quot;5432:5432&quot;
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: [&quot;CMD-SHELL&quot;, &quot;pg_isready -U copilot_user -d copilot_db&quot;]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # 3. 高并发缓存与异步队列 (Redis 7)
+  redis:
+    image: redis:7-alpine
+    container_name: copilot_redis
+    restart: always
+    ports:
+      - &quot;6379:6379&quot;
+    volumes:
+      - redisdata:/data
+
+volumes:
+  pgdata:
+  redisdata:</code></pre><hr>
+<h2 id="ci-cd-自动化门禁-github-actions-工作流">CI/CD 自动化门禁：GitHub Actions 工作流</h2><p>每次提交代码或向主分支发起 PR 时，自动化流水线必须严格执行三道质量大门：<strong>静态检查 -&gt; 单元测试 -&gt; 容器构建</strong>。任何一处报错，自动阻断合并：</p>
+<pre><code class="language-yaml"># .github/workflows/ci.yml
+name: CI/CD Quality Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  quality-gate:
+    runs-on: ubuntu-latest
+
+    services:
+      # 在 CI 环境中自动拉起 PostgreSQL 配合自动化测试
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: test_user
+          POSTGRES_PASSWORD: test_pass
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: &gt;-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Node.js 环境
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: &quot;npm&quot;
+
+      - name: 安装依赖
+        run: npm ci
+
+      - name: 第一道门禁: TypeScript 类型检查与代码风格
+        run: npm run lint &amp;&amp; npx tsc --noEmit
+
+      - name: 第二道门禁: 自动化单元测试与集成测试
+        env:
+          DATABASE_URL: postgres://test_user:test_pass@localhost:5432/test_db
+        run: npm test
+
+      - name: 第三道门禁: 生产 Docker 镜像试构建
+        run: docker build -t copilot-server:test .</code></pre><hr>
+<h2 id="优雅停机-graceful-shutdown-实操">优雅停机 (Graceful Shutdown) 实操</h2><p>在生产环境中，容器会被频繁地滚动更新或重启。如果 Node.js 进程在收到重启信号（<code>SIGTERM</code>）时直接自杀退出，正在进行的 SSE 流式长连接会被生硬截断，数据库连接池中的未提交事务会被强行破坏。</p>
+<pre><code class="language-typescript">// src/lifecycle.ts
+import { FastifyInstance } from &quot;fastify&quot;;
+import { dbPool } from &quot;./db&quot;;
+import { redis } from &quot;./cache&quot;;
+
+export function setupGracefulShutdown(app: FastifyInstance) {
+  const handleSignal = async (signal: string) =&gt; {
+    app.log.warn(`收到 ${signal} 退出信号，启动优雅停机流程...`);
+
+    try {
+      // 1. 停止接收新的 HTTP 请求，但允许正在处理的请求最多继续运行 10 秒
+      await app.close();
+      app.log.info(&quot;HTTP 服务已平平稳关闭&quot;);
+
+      // 2. 关闭数据库连接池
+      await dbPool.end();
+      app.log.info(&quot;数据库连接池已全部释放&quot;);
+
+      // 3. 断开 Redis 连接
+      await redis.quit();
+      app.log.info(&quot;Redis 客户端已断开&quot;);
+
+      app.log.info(&quot;全部资源清理完毕，安全退出进程&quot;);
+      process.exit(0);
+    } catch (err) {
+      app.log.error({ err }, &quot;优雅停机过程中发生异常，强制退出&quot;);
+      process.exit(1);
+    }
+  };
+
+  process.on(&quot;SIGTERM&quot;, () =&gt; handleSignal(&quot;SIGTERM&quot;));
+  process.on(&quot;SIGINT&quot;, () =&gt; handleSignal(&quot;SIGINT&quot;));
+}</code></pre><hr>
+<h2 id="生产故障复盘规范-post-mortem-真实案例">生产故障复盘规范：Post-Mortem 真实案例</h2><p>任何合格的全栈工程师都必须学会正视生产故障。当线上发生事故后，绝不搞“追责抓内鬼”，而是撰写一份详尽的<strong>故障复盘报告（Post-mortem）</strong>，将坏事转化为整个团队的技术防护墙。</p>
+<h3 id="真实事故复盘报告样例-连接池耗尽导致全局白屏">真实事故复盘报告样例：连接池耗尽导致全局白屏</h3><pre><code class="language-text">========================================================================
+生产故障复盘报告 (Incident Post-Mortem)
+故障编号: INC-202610-09
+影响级别: P1 级重大故障 (全线知识库问答不可用)
+发生时间: 2026-10-23 14:15 - 14:42 (总历时 27 分钟)
+责任团队: AI 全栈研发组
+========================================================================
+
+一、故障影响
+线上全部租户的知识库检索接口均报 500/504 超时，影响在线活跃用户 2,400 余人。
+
+二、时间线还原 (Timeline)
+- 14:15: 运营向全员推送新制度宣贯，并发请求瞬间从 5 QPS 激增至 120 QPS。
+- 14:18: Sentry 弹出报警：POST /api/chat 接口延迟突破 15 秒。
+- 14:21: 数据库告警触发：PostgreSQL max_connections (100) 达到 100% 满载。
+- 14:25: 研发接入排查，发现所有 Node 实例均卡在 dbPool.connect() 等待队列中。
+- 14:32: 紧急回滚止损：重启容器并临时调大连接池上限至 200，服务恢复响应。
+- 14:42: 观察指标正常，宣布故障解除。
+
+三、根因分析 (Root Cause)
+在第 03 章引入的扣费事务中，某开发人员误将外部 OpenAI 的网络请求写在 BEGIN ... COMMIT 
+数据库事务锁内部！导致数据库连接在等待外部大模型长达 8 秒的生成期间一直被牢牢占用，
+连接无法释放回池中，瞬间将数据库连接池占满并死锁！
+
+四、改进措施 (Action Items)
+1. [已完成][P0] 立即重构代码：将外部大模型调用完全移出数据库事务锁，先预扣费，再调用模型，最后异步结算，事务内耗时从 8,000ms 降至 5ms。(责任人: 张工)
+2. [本周完成][P1] 在 CI 门禁中增加静态代码扫描规则，禁止在事务包裹函数内发起外部 HTTP 调用。(责任人: 李工)
+3. [本月完成][P1] 完善 Grafana 监控大盘，增加连接池利用率超过 80% 时的提前告警。(责任人: 王工)
+========================================================================</code></pre><hr>
+<h2 id="边界误区与排错清单">边界误区与排错清单</h2><h3 id="1-致命误区">1. 致命误区</h3><ul>
+<li><strong>Dockerfile 中未指定 USER node</strong>：默认以 root 身份运行，容器一旦被注入 Webshell，黑客可以直接操控 Linux 内核或挂载卷。</li>
+<li><strong>数据库迁移（Migration）直接在线上手工改表</strong>：在线上手工执行 <code>ALTER TABLE</code>，导致开发、测试、生产三个环境的表结构漂移错乱。生产环境必须依靠 Prisma 或 Drizzle 的迁移版本文件在发布时自动化执行。</li>
+</ul>
+<h3 id="2-可靠性自检表">2. 可靠性自检表</h3><ul>
+<li><input disabled="" type="checkbox"> 生产 Docker 镜像是否通过多阶段构建压制在 150MB 以下，且以非 root 用户启动？</li>
+<li><input disabled="" type="checkbox"> 容器内是否配置了有效的 <code>HEALTHCHECK</code> 命令探测 <code>/healthz</code> 端点？</li>
+<li><input disabled="" type="checkbox"> Node.js 进程是否监听了 <code>SIGTERM</code> 信号并在优雅关闭前等待正在进行的 SSE 连接？</li>
+<li><input disabled="" type="checkbox"> 发生任何线上 P 级事故后，是否严格按照时间线、根因与改进项输出复盘记录？</li>
+</ul>
+<hr>
+<h2 id="课后迁移实践任务">课后迁移实践任务</h2><ol>
+<li><strong>容器编排实战</strong>：在本地利用本章提供的 <code>docker-compose.yml</code>，执行 <code>docker compose up -d</code>，一次性成功启动 App、PostgreSQL 和 Redis，并访问 <code>http://localhost:3000/healthz</code> 验证健康检查返回 <code>200 OK</code>。</li>
+<li><strong>故障复盘模拟演练</strong>：挑选一次你在前端或服务端开发中真实经历过的线上 Bug（例如内存泄漏、跨域报错导致发布回滚），按照本章的 Post-Mortem 模板撰写一篇详实的分析报告。</li>
+</ol>
+
+      </article>
+
+      <!-- 底部上下章导航 -->
+      
+    <nav class="article-nav-pager" aria-label="文章上下导航">
+      <a href="./10-controlled-agent-and-human-in-the-loop.html" class="pager-btn prev">
+              <span class="pager-label">◀ 上一章</span>
+              <span class="pager-title">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            </a>
+      <a href="./12-java-spring-cloud-collaboration.html" class="pager-btn next">
+              <span class="pager-label">下一章 ▶</span>
+              <span class="pager-title">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            </a>
+    </nav>
+  
+    </main>
+
+    <!-- 3. 右侧本章目录 (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-header">
+        <span>📑</span>
+        <span>本章目录</span>
+      </div>
+      <ul class="toc-list">
+        <!-- 由 juejin.js 自动根据文章内 h2, h3 提取并生成 -->
+      </ul>
+    </aside>
+  </div>
+</body>
+</html>

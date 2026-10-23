@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 4 章 高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列 | 前端转 AI 全栈路线</title>
+  <link rel="stylesheet" href="../assets/juejin.css">
+  <!-- 引入 Mermaid 渲染架构流程图 -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <!-- 引入交互脚本: Mac代码框、一键复制、文章目录滚动高亮、左侧章节联动 -->
+  <script defer src="../assets/juejin.js"></script>
+</head>
+<body>
+  <!-- 顶部导航条 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-brand">
+        <span class="brand-badge">课程专栏</span>
+        <span>前端转 AI 全栈：从交互体验到生产级交付</span>
+      </a>
+      <div class="navbar-actions">
+        <a href="../index.html">返回课程总览 📚</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主布局 (三栏布局: 左侧专栏目录 + 中间正文 + 右侧本章目录) -->
+  <div class="layout-container">
+    <!-- 1. 左侧专栏章节导航 -->
+    
+    <aside class="chapters-sidebar">
+      <div class="chapters-sidebar-header">
+        <span>📚 专栏章节导航</span>
+        <span class="chapters-count-badge">12 讲全</span>
+      </div>
+      <nav class="chapters-nav-scroll" aria-label="课程章节列表">
+        
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块一：认知重塑与工程基石</div>
+        
+          <a href="./01-mindset-and-fullstack-boundary.html" class="chapter-nav-item " title="认知重塑：为什么会调用 API 不等于 AI 全栈">
+            <span class="chapter-num">01</span>
+            <span class="chapter-title-text">认知重塑：为什么会调用 API 不等于 AI 全栈</span>
+            
+          </a>
+        
+          <a href="./02-fastify-rest-and-contract.html" class="chapter-nav-item " title="服务端工程基石：REST 规范、参数校验与端到端类型契约">
+            <span class="chapter-num">02</span>
+            <span class="chapter-title-text">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块二：后端工程与核心存储</div>
+        
+          <a href="./03-postgresql-modeling-and-pgvector.html" class="chapter-nav-item " title="核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展">
+            <span class="chapter-num">03</span>
+            <span class="chapter-title-text">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./04-redis-cache-ratelimit-and-queue.html" class="chapter-nav-item active" title="高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列">
+            <span class="chapter-num">04</span>
+            <span class="chapter-title-text">高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</span>
+            
+          </a>
+        
+          <a href="./05-auth-rbac-and-security.html" class="chapter-nav-item " title="生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御">
+            <span class="chapter-num">05</span>
+            <span class="chapter-title-text">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块三：生产级 LLM 应用开发</div>
+        
+          <a href="./06-streaming-sse-and-llm-gateway.html" class="chapter-nav-item " title="生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关">
+            <span class="chapter-num">06</span>
+            <span class="chapter-title-text">生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./07-structured-output-and-tool-calling.html" class="chapter-nav-item " title="结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环">
+            <span class="chapter-num">07</span>
+            <span class="chapter-title-text">结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块四：企业级 RAG 架构与评测</div>
+        
+          <a href="./08-enterprise-rag-pipeline.html" class="chapter-nav-item " title="工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离">
+            <span class="chapter-num">08</span>
+            <span class="chapter-title-text">工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./09-rag-evaluation-and-cost-observability.html" class="chapter-nav-item " title="从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性">
+            <span class="chapter-num">09</span>
+            <span class="chapter-title-text">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块五：受控 Agent 与生产运维</div>
+        
+          <a href="./10-controlled-agent-and-human-in-the-loop.html" class="chapter-nav-item " title="受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制">
+            <span class="chapter-num">10</span>
+            <span class="chapter-title-text">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            
+          </a>
+        
+          <a href="./11-docker-cicd-and-reliability.html" class="chapter-nav-item " title="容器化交付、CI/CD 自动化部署与生产环境故障复盘">
+            <span class="chapter-num">11</span>
+            <span class="chapter-title-text">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块六：企业级微服务协同</div>
+        
+          <a href="./12-java-spring-cloud-collaboration.html" class="chapter-nav-item " title="企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用">
+            <span class="chapter-num">12</span>
+            <span class="chapter-title-text">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            
+          </a>
+        
+      </div>
+    
+    <div class="chapter-group">
+      <div class="chapter-group-title">配套参考与手册</div>
+      
+        <a href="../reference/glossary.html" class="chapter-nav-item " title="前端转 AI 全栈核心术语速查表">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">前端转 AI 全栈核心术语速查表</span>
+        </a>
+      
+        <a href="../reference/checklist.html" class="chapter-nav-item " title="生产上线前检查清单与排错速查">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">生产上线前检查清单与排错速查</span>
+        </a>
+      
+    </div>
+  
+      </nav>
+    </aside>
+  
+
+    <!-- 2. 中间核心正文卡片 -->
+    <main class="article-main">
+      <header class="article-header">
+        <div class="article-category">
+          <span>📖 第 4 核心实战章节</span>
+        </div>
+        <h1 class="article-title">第 4 章 高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</h1>
+        <div class="article-meta">
+          <div class="author-info">
+            <span class="author-avatar">AI</span>
+            <span>全栈技术教练</span>
+          </div>
+          <span>•</span>
+          <span>⏱️ 预计学习：85–105 分钟</span>
+          <span>•</span>
+          <span>📝 约 6536 字</span>
+          <span>•</span>
+          <span>🏷️ 生产级落地标准</span>
+        </div>
+      </header>
+
+      <!-- 一句话要点卡片 -->
+      <aside class="article-summary-card">
+        <strong>💡 本章核心要点：</strong>外部大模型接口通常存在严重的并发限制与高昂调用计费，单次请求耗时更是长达数秒；Redis 是横亘在前端洪峰流量与脆弱后端之间不可或缺的防洪护城河。
+      </aside>
+
+      <!-- 文章正文区域 -->
+      <article class="markdown-body">
+        <hr>
+<h2 id="真实灾难回放-ai-网关如何被瞬时流量击穿">真实灾难回放：AI 网关如何被瞬时流量击穿</h2><p>某企业知识库上线首日，HR 部门在内部大群发出了一则通知：“员工考勤新规已上线 AI 知识库，大家有疑问可随时提问！”</p>
+<p>几分钟内，数千名员工同时打开网页发起提问。然而仅仅过了 3 分钟，整套系统彻底瘫痪：</p>
+<ol>
+<li><strong>数据库连接池被占满打垮</strong>：由于没有做热点缓存，数千个完全相同的提问（如“年假怎么休”）同时打到 PostgreSQL，数据库 CPU 飙升至 100%，连接池瞬间耗尽并拒绝所有新请求。</li>
+<li><strong>外部大模型 API 触发 429 熔断</strong>：未经过服务端限流排队，大量请求同时直冲 OpenAI，上游接口返回 <code>429 Too Many Requests</code>，整个界面呈现大面积报错。</li>
+<li><strong>主进程被重型任务卡死</strong>：有几个员工尝试上传了 50MB 的大型 PDF 手册，服务端直接在主 HTTP 响应线程里同步做文件清洗、字符切块与批量 Embedding 计算，导致单次 HTTP 请求耗时超过 60 秒，网关触发 Nginx 504 Gateway Timeout 超时中断。</li>
+</ol>
+<p>要彻底解决以上三类工业级痛点，必须熟练掌握 Redis 在<strong>缓存防御、原子限流与异步任务解耦</strong>上的三把斧。</p>
+<hr>
+<h2 id="缓存三大经典灾难与工业级防御策略">缓存三大经典灾难与工业级防御策略</h2><div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+  subgraph 灾难场景与应对
+    P1["1. 缓存穿透\n查询一个根本不存在的文档 ID\n缓存无、DB 也无，黑客恶意持续击穿 DB"] --> S1["解决方案: 缓存空对象 (带 60s 短过期) 或引入布隆过滤器 (Bloom Filter)"]
+    P2["2. 缓存击穿\n某个超热点问题 (如'年会时间') 缓存突然到期失效\n瞬间数百并发请求同时冲向 DB 重新生成"] --> S2["解决方案: 互斥锁 (Mutex Lock) 单飞模式，仅放行 1 个请求去查 DB 回填"]
+    P3["3. 缓存雪崩\n大量缓存数据设置了完全相同的过期时间 (如 1 小时)\n到期点所有缓存集中失效，DB 瞬间被洪峰压垮"] --> S3["解决方案: 过期时间增加随机扰动 (TTL = 基础时间 + 随机秒数)"]
+  end</pre></div><h3 id="生产级热点问题缓存实现-带互斥防击穿">生产级热点问题缓存实现（带互斥防击穿）</h3><p>在 AI 知识库中，对于用户问得最多的一致性常见问题（FAQ），建立问答哈希缓存能节省 70% 以上的模型费用与等待时间：</p>
+<pre><code class="language-typescript">import Redis from &quot;ioredis&quot;;
+
+export const redis = new Redis(process.env.REDIS_URL || &quot;redis://localhost:6379&quot;);
+
+export async function getCachedAnswerWithMutex(
+  questionHash: string,
+  generateFn: () =&gt; Promise&lt;string&gt;
+): Promise&lt;string&gt; {
+  const cacheKey = `faq:answer:${questionHash}`;
+  const lockKey = `lock:faq:${questionHash}`;
+
+  // 1. 尝试从缓存直接读取
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    return cached;
+  }
+
+  // 2. 缓存未命中，尝试获取 Redis 分布式互斥锁 (NX: 只有不存在才设置，EX: 10 秒超时防死锁)
+  const acquireLock = await redis.set(lockKey, &quot;locked&quot;, &quot;EX&quot;, 10, &quot;NX&quot;);
+
+  if (acquireLock === &quot;OK&quot;) {
+    try {
+      // 成功获得锁：当前线程负责调用耗时的 LLM 或 DB 生成答案
+      const answer = await generateFn();
+      
+      // 写入缓存，设置随机过期时间防雪崩 (基础 3600 秒 + 随机 0~300 秒)
+      const randomTTL = 3600 + Math.floor(Math.random() * 300);
+      await redis.set(cacheKey, answer, &quot;EX&quot;, randomTTL);
+
+      return answer;
+    } finally {
+      // 释放锁
+      await redis.del(lockKey);
+    }
+  } else {
+    // 未获得锁：说明已有其他并发请求正在生成，短暂休眠 200ms 后重试读缓存
+    await new Promise((resolve) =&gt; setTimeout(resolve, 200));
+    return getCachedAnswerWithMutex(questionHash, generateFn);
+  }
+}</code></pre><hr>
+<h2 id="毫秒级滑动窗口限流-redis-lua-脚本实战">毫秒级滑动窗口限流：Redis + Lua 脚本实战</h2><p>很多新手使用的“固定窗口计数器”（例如每分钟最多 60 次），存在严重的<strong>窗口临界突发穿透漏洞</strong>：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+  subgraph 固定窗口致命缺陷
+    W1["00:59\n前窗口末尾突发 60 次"] --> Line["01:00\n重置计数器为 0"]
+    Line --> W2["01:01\n后窗口开始突发 60 次"]
+  end
+  style Line stroke:#f00,stroke-width:2px</pre></div><p>在短短 2 秒钟内，实际涌入了 120 次请求，瞬间打垮下游！</p>
+<h3 id="1-滑动窗口原理与-redis-zset">1. 滑动窗口原理与 Redis ZSET</h3><p>通过 Redis 的有序集合（Sorted Set / ZSET），将用户的每次请求时间戳记为 <code>score</code> 和 <code>value</code>。限流逻辑为：</p>
+<ol>
+<li>移除集合中“当前时间戳减去窗口大小”之前的所有过期请求。</li>
+<li>统计当前集合剩余的成员数量。</li>
+<li>若数量小于限制阈值，将本次请求时间戳加入集合并放行；否则拒绝请求。</li>
+</ol>
+<h3 id="2-保证原子性的-lua-脚本实现">2. 保证原子性的 Lua 脚本实现</h3><p>由于涉及“删除、计数、插入”多个步骤，必须使用 <strong>Lua 脚本</strong>在 Redis 服务端单线程原子执行，严禁在客户端代码中分多次往返发送 Redis 命令！</p>
+<pre><code class="language-typescript">// sliding_window_ratelimit.lua
+const slidingWindowLua = `
+local key = KEYS[1]
+local now = tonumber(ARGV[1])
+local window = tonumber(ARGV[2])
+local limit = tonumber(ARGV[3])
+
+local clearBefore = now - window
+-- 1. 移除窗口外的过期记录
+redis.call(&#039;ZREMRANGEBYSCORE&#039;, key, &#039;-inf&#039;, clearBefore)
+
+-- 2. 统计当前窗口内的请求数
+local currentRequests = redis.call(&#039;ZCARD&#039;, key)
+
+-- 3. 判断是否超限
+if currentRequests &lt; limit then
+    -- 未超限，记录本次请求 (member 和 score 均使用当前毫秒时间戳)
+    redis.call(&#039;ZADD&#039;, key, now, now)
+    -- 设置 key 的过期时间为窗口时长，防止冷门 key 长期占用内存
+    redis.call(&#039;EXPIRE&#039;, key, math.ceil(window / 1000))
+    return 1 -- 允许通过
+else
+    return 0 -- 触发限流拦截
+end
+`;
+
+export async function checkRateLimit(
+  userId: string,
+  limit = 20, // 限制 20 次
+  windowMs = 60000 // 窗口 1 分钟 (60000ms)
+): Promise&lt;{ allowed: boolean }&gt; {
+  const key = `ratelimit:user:${userId}`;
+  const now = Date.now();
+
+  const result = await redis.eval(
+    slidingWindowLua,
+    1,
+    key,
+    now,
+    windowMs,
+    limit
+  );
+
+  return { allowed: result === 1 };
+}</code></pre><p>在 Fastify 接口中间件中使用该限流器：</p>
+<pre><code class="language-typescript">app.addHook(&quot;preHandler&quot;, async (request, reply) =&gt; {
+  const userId = request.headers[&quot;x-user-id&quot;] as string || request.ip;
+  const { allowed } = await checkRateLimit(userId, 30, 60000); // 限制每分钟最多 30 次
+
+  if (!allowed) {
+    return reply.status(429).send({
+      code: 42900,
+      message: &quot;请求过于频繁，请稍后再试&quot;,
+      data: null,
+      traceId: request.id,
+    });
+  }
+});</code></pre><hr>
+<h2 id="异步任务解耦-基于-bullmq-剥离长耗时任务">异步任务解耦：基于 BullMQ 剥离长耗时任务</h2><p>文档上传、PDF 解析、分块切片与批量调用 Embedding 模型，是典型的<strong>长耗时重型 I/O 任务</strong>（往往需要耗费数十秒至数分钟）。</p>
+
+      <div class="callout callout-warning">
+        <div class="callout-header">⚠️ 重要告警</div>
+        <p><strong>绝对禁止在 HTTP 请求主线程中同步等待文档切片与 Embedding 向量化！</strong><br>必须遵循“<strong>立即返回任务 ID，后台异步队列分批消费</strong>”的工业级解耦规范。</p>
+      </div>
+    
+<div class="mermaid-wrapper"><pre class="mermaid">sequenceDiagram
+  autonumber
+  actor User as 客户端用户
+  participant API as Fastify 接口层
+  participant Queue as Redis (BullMQ 任务队列)
+  participant Worker as 独立后台 Worker 进程
+  participant DB as PostgreSQL (pgvector)
+
+  User->>API: POST /api/documents (上传 50MB PDF)
+  API->>DB: INSERT INTO documents (status = 'processing') RETURNING id;
+  API->>Queue: docQueue.add("process-doc", { docId, fileUrl });
+  API-->>User: 202 Accepted { docId, status: "processing" } (毫秒级即时响应)
+  
+  Note over Queue,Worker: 异步消费与后台执行
+  Worker->>Queue: 拉取待处理任务
+  Worker->>Worker: 解析 PDF 提取文本，进行 Markdown 递归分块
+  Worker->>Worker: 批量调用 Embedding 模型 (并发批次 = 10)
+  Worker->>DB: 批量写入 document_chunks，并 UPDATE documents SET status = 'ready'
+  
+  User->>API: 轮询或 SSE 监听: GET /api/documents/:id/status
+  API-->>User: 状态变为 ready，知识库可用</pre></div><h3 id="生产者-立即推入队列并返回任务编号">生产者：立即推入队列并返回任务编号</h3><pre><code class="language-typescript">import { Queue } from &quot;bullmq&quot;;
+
+export const documentQueue = new Queue(&quot;document-processing&quot;, {
+  connection: { host: &quot;localhost&quot;, port: 6379 },
+});
+
+// 在 Fastify 路由中：
+app.post(&quot;/api/v1/documents/upload&quot;, async (req, reply) =&gt; {
+  const { docId, fileUrl } = req.body as any;
+
+  // 1. 将任务丢入 Redis 队列
+  await documentQueue.add(&quot;parse-and-embed&quot;, {
+    documentId: docId,
+    fileUrl: fileUrl,
+    submittedAt: new Date().toISOString(),
+  }, {
+    attempts: 3, // 失败重试 3 次
+    backoff: { type: &quot;exponential&quot;, delay: 2000 }, // 指数退避重试
+  });
+
+  // 2. 毫秒级给前端返回 202 Accepted
+  return reply.status(202).send({
+    code: 0,
+    message: &quot;文档已加入后台处理队列&quot;,
+    data: { documentId: docId, status: &quot;queued&quot; },
+  });
+});</code></pre><hr>
+<h2 id="边界误区与排错排查清单">边界误区与排错排查清单</h2><h3 id="1-生产高频事故">1. 生产高频事故</h3><ul>
+<li><strong>Lua 脚本执行超时导致 Redis 阻塞</strong>：Redis 是单线程模型，如果在 Lua 脚本中写了耗时极长或死循环的代码，整个 Redis 实例将被彻底冻结，引发全局大故障。Lua 脚本必须保持简单极速。</li>
+<li><strong>大 Key 内存溢出</strong>：把整个几兆的 PDF 二进制内容直接作为一个字符串塞入 Redis。Redis 应该只存短文本、元数据、Token 状态或任务上下文，严禁存放大型二进制大对象（Blob）。</li>
+</ul>
+<h3 id="2-护城河自检清单">2. 护城河自检清单</h3><ul>
+<li><input disabled="" type="checkbox"> 所有对公众开放的 AI 问答接口是否挂载了滑动窗口限流守卫？</li>
+<li><input disabled="" type="checkbox"> 缓存写入时是否增加了随机 TTL 扰动，避免同一时刻集中雪崩？</li>
+<li><input disabled="" type="checkbox"> 分布式锁是否配置了合理的过期时间（<code>EX</code>），防止应用异常崩溃导致锁永远无法释放？</li>
+<li><input disabled="" type="checkbox"> 耗时的向量化任务是否已完全移入 BullMQ 等后台队列，主 HTTP 接口响应是否在 200ms 以内？</li>
+</ul>
+<hr>
+<h2 id="课后迁移实践任务">课后迁移实践任务</h2><ol>
+<li><strong>限流脚本压测验证</strong>：在本地启动 Redis，引入本章提供的滑动窗口 Lua 脚本，编写一个压测脚本快速发出 50 次请求（阈值设为 20 次/分钟），确认第 21 到 50 次请求被精确拒绝，且返回状态码均为 429。</li>
+<li><strong>防击穿模拟实验</strong>：模拟 5 个并发请求同时访问一个未命中的热点问题，观察日志，验证互斥锁是否成功使得只有一个请求去调用了生成函数，另外 4 个请求均成功复用了前者回填的缓存。</li>
+</ol>
+
+      </article>
+
+      <!-- 底部上下章导航 -->
+      
+    <nav class="article-nav-pager" aria-label="文章上下导航">
+      <a href="./03-postgresql-modeling-and-pgvector.html" class="pager-btn prev">
+              <span class="pager-label">◀ 上一章</span>
+              <span class="pager-title">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            </a>
+      <a href="./05-auth-rbac-and-security.html" class="pager-btn next">
+              <span class="pager-label">下一章 ▶</span>
+              <span class="pager-title">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            </a>
+    </nav>
+  
+    </main>
+
+    <!-- 3. 右侧本章目录 (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-header">
+        <span>📑</span>
+        <span>本章目录</span>
+      </div>
+      <ul class="toc-list">
+        <!-- 由 juejin.js 自动根据文章内 h2, h3 提取并生成 -->
+      </ul>
+    </aside>
+  </div>
+</body>
+</html>

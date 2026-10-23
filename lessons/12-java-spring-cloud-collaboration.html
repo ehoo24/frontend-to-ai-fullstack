@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 12 章 企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用 | 前端转 AI 全栈路线</title>
+  <link rel="stylesheet" href="../assets/juejin.css">
+  <!-- 引入 Mermaid 渲染架构流程图 -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <!-- 引入交互脚本: Mac代码框、一键复制、文章目录滚动高亮、左侧章节联动 -->
+  <script defer src="../assets/juejin.js"></script>
+</head>
+<body>
+  <!-- 顶部导航条 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-brand">
+        <span class="brand-badge">课程专栏</span>
+        <span>前端转 AI 全栈：从交互体验到生产级交付</span>
+      </a>
+      <div class="navbar-actions">
+        <a href="../index.html">返回课程总览 📚</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主布局 (三栏布局: 左侧专栏目录 + 中间正文 + 右侧本章目录) -->
+  <div class="layout-container">
+    <!-- 1. 左侧专栏章节导航 -->
+    
+    <aside class="chapters-sidebar">
+      <div class="chapters-sidebar-header">
+        <span>📚 专栏章节导航</span>
+        <span class="chapters-count-badge">12 讲全</span>
+      </div>
+      <nav class="chapters-nav-scroll" aria-label="课程章节列表">
+        
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块一：认知重塑与工程基石</div>
+        
+          <a href="./01-mindset-and-fullstack-boundary.html" class="chapter-nav-item " title="认知重塑：为什么会调用 API 不等于 AI 全栈">
+            <span class="chapter-num">01</span>
+            <span class="chapter-title-text">认知重塑：为什么会调用 API 不等于 AI 全栈</span>
+            
+          </a>
+        
+          <a href="./02-fastify-rest-and-contract.html" class="chapter-nav-item " title="服务端工程基石：REST 规范、参数校验与端到端类型契约">
+            <span class="chapter-num">02</span>
+            <span class="chapter-title-text">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块二：后端工程与核心存储</div>
+        
+          <a href="./03-postgresql-modeling-and-pgvector.html" class="chapter-nav-item " title="核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展">
+            <span class="chapter-num">03</span>
+            <span class="chapter-title-text">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./04-redis-cache-ratelimit-and-queue.html" class="chapter-nav-item " title="高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列">
+            <span class="chapter-num">04</span>
+            <span class="chapter-title-text">高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</span>
+            
+          </a>
+        
+          <a href="./05-auth-rbac-and-security.html" class="chapter-nav-item " title="生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御">
+            <span class="chapter-num">05</span>
+            <span class="chapter-title-text">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块三：生产级 LLM 应用开发</div>
+        
+          <a href="./06-streaming-sse-and-llm-gateway.html" class="chapter-nav-item " title="生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关">
+            <span class="chapter-num">06</span>
+            <span class="chapter-title-text">生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./07-structured-output-and-tool-calling.html" class="chapter-nav-item " title="结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环">
+            <span class="chapter-num">07</span>
+            <span class="chapter-title-text">结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块四：企业级 RAG 架构与评测</div>
+        
+          <a href="./08-enterprise-rag-pipeline.html" class="chapter-nav-item " title="工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离">
+            <span class="chapter-num">08</span>
+            <span class="chapter-title-text">工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./09-rag-evaluation-and-cost-observability.html" class="chapter-nav-item " title="从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性">
+            <span class="chapter-num">09</span>
+            <span class="chapter-title-text">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块五：受控 Agent 与生产运维</div>
+        
+          <a href="./10-controlled-agent-and-human-in-the-loop.html" class="chapter-nav-item " title="受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制">
+            <span class="chapter-num">10</span>
+            <span class="chapter-title-text">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            
+          </a>
+        
+          <a href="./11-docker-cicd-and-reliability.html" class="chapter-nav-item " title="容器化交付、CI/CD 自动化部署与生产环境故障复盘">
+            <span class="chapter-num">11</span>
+            <span class="chapter-title-text">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块六：企业级微服务协同</div>
+        
+          <a href="./12-java-spring-cloud-collaboration.html" class="chapter-nav-item active" title="企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用">
+            <span class="chapter-num">12</span>
+            <span class="chapter-title-text">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            
+          </a>
+        
+      </div>
+    
+    <div class="chapter-group">
+      <div class="chapter-group-title">配套参考与手册</div>
+      
+        <a href="../reference/glossary.html" class="chapter-nav-item " title="前端转 AI 全栈核心术语速查表">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">前端转 AI 全栈核心术语速查表</span>
+        </a>
+      
+        <a href="../reference/checklist.html" class="chapter-nav-item " title="生产上线前检查清单与排错速查">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">生产上线前检查清单与排错速查</span>
+        </a>
+      
+    </div>
+  
+      </nav>
+    </aside>
+  
+
+    <!-- 2. 中间核心正文卡片 -->
+    <main class="article-main">
+      <header class="article-header">
+        <div class="article-category">
+          <span>📖 第 12 核心实战章节</span>
+        </div>
+        <h1 class="article-title">第 12 章 企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</h1>
+        <div class="article-meta">
+          <div class="author-info">
+            <span class="author-avatar">AI</span>
+            <span>全栈技术教练</span>
+          </div>
+          <span>•</span>
+          <span>⏱️ 预计学习：90–120 分钟</span>
+          <span>•</span>
+          <span>📝 约 7609 字</span>
+          <span>•</span>
+          <span>🏷️ 生产级落地标准</span>
+        </div>
+      </header>
+
+      <!-- 一句话要点卡片 -->
+      <aside class="article-summary-card">
+        <strong>💡 本章核心要点：</strong>全栈工程师的价值不在于死记某一种语言语法，而在于掌握系统工程的互通法则；破除对 Java 微服务的敬畏心，读懂 Controller 到 Mapper 的数据流向，消除 N+1 慢查询，并在企业既有架构中安全协同接入 AI 模块。
+      </aside>
+
+      <!-- 文章正文区域 -->
+      <article class="markdown-body">
+        <hr>
+<h2 id="为什么全栈路线必须包含企业级-java-协同能力">为什么全栈路线必须包含企业级 Java 协同能力</h2><p>许多前端开发者在个人项目里能够用 Node.js 或 Python 搭建整套 AI 应用，但当他们进入真实的大中型企业（尤其是物流、航空、货运、金融等传统行业系统，例如典型的 <code>itran-cargoplus-cloud</code> 架构）时，往往会面临一面高耸的技术壁垒：</p>
+<ul>
+<li><strong>公司核心业务全部运行在 Java 微服务集群中</strong>（Spring Boot 3、Spring Cloud Alibaba、Nacos、OpenFeign、MyBatis-Plus、RabbitMQ）；</li>
+<li>前端提问接口需求时，经常得到后端的一句“这个改动牵扯分布式事务，或者租户上下文丢失了”，前端不知所云，陷入被动沟通；</li>
+<li>公司需要接入 AI 能力时，要么由不懂交互的前端硬拼 API，要么由不熟悉流式长连接的传统后端机械封装，产物既卡顿又频发内存溢出。</li>
+</ul>
+
+      <div class="callout callout-tip">
+        <div class="callout-header">📝 背景说明</div>
+        <p>学习 Java 的目标<strong>绝不是从头通读所有 Java 巨著或背诵 JVM 垃圾回收细节</strong>，而是建立<strong>心智映射模型</strong>：能快速读懂现有调用链、排查跨服务 Bug、写出最小修改补丁，并与后端同事基于统一的工程标准无缝协作。</p>
+      </div>
+    
+<hr>
+<h2 id="心智映射-从-node-js-fastify-到-java-spring-boot">心智映射：从 Node.js/Fastify 到 Java/Spring Boot</h2><p>Java 并不神秘，它与现代 TypeScript 服务端架构的底层思想完全一脉相承：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+  subgraph Node.js / Fastify / Prisma 心智模型
+    R1["app.route (路由监听与参数解析)"] --> S1["Service / 业务类 (计算、逻辑判断)"]
+    S1 --> P1["Prisma / SQL Client (数据库交互)"]
+    S1 --> E1["npm / DTO Interface (类型契约)"]
+  end
+
+  subgraph Java / Spring Boot / MyBatis 心智模型
+    R2["@RestController (接收 HTTP 请求，参数绑定)"] --> S2["@Service (事务控制、核心业务流转)"]
+    S2 --> P2["@Mapper / XML (MyBatis SQL 查询与映射)"]
+    S2 --> E2["Entity / Param / VO / DTO (数据传输对象)"]
+  end
+
+  R1 -.- R2
+  S1 -.- S2
+  P1 -.- P2
+  E1 -.- E2</pre></div><h3 id="必须掌握的核心注解快速对照表">必须掌握的核心注解快速对照表</h3><div class="table-wrapper"><table>
+<thead>
+<tr>
+<th align="left">Spring 注解</th>
+<th align="left">作用与对应的前端/Node 概念</th>
+<th align="left">常见排错与注意事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>@RestController</code></td>
+<td align="left">声明此类为 HTTP 控制器，方法默认返回 JSON（等同于 Fastify 路由处理器）。</td>
+<td align="left">确保路径前缀（<code>@RequestMapping</code>）未与网关路由规则冲突。</td>
+</tr>
+<tr>
+<td align="left"><code>@Autowired</code> / <code>@Resource</code></td>
+<td align="left">依赖注入（IoC），自动装配 Service 或 Mapper 实例。</td>
+<td align="left">推荐使用构造器注入，防止空指针与循环依赖。</td>
+</tr>
+<tr>
+<td align="left"><code>@Transactional</code></td>
+<td align="left">开启数据库事务（<code>BEGIN...COMMIT</code>）。</td>
+<td align="left"><strong>排错重点</strong>：必须加 <code>(rollbackFor = Exception.class)</code>，且类内自调用（<code>this.method()</code>）会导致事务失效！</td>
+</tr>
+<tr>
+<td align="left"><code>@PreAuthorize</code></td>
+<td align="left">接口权限拦截（如 <code>@PreAuthorize(&quot;hasAuthority(&#39;cargo:order:add&#39;)&quot;)</code>）。</td>
+<td align="left">校验失败直接抛出 403，排查无权限时优先查用户权限列表。</td>
+</tr>
+</tbody></table></div>
+<hr>
+<h2 id="典型企业工程结构拆解-以真实货运微服务为例">典型企业工程结构拆解 (以真实货运微服务为例)</h2><p>在诸如 <code>itran-cargoplus-cloud</code> 等典型企业级微服务中，项目通常遵循严格的 <code>client / server</code> 分包规范：</p>
+<pre><code class="language-text">itran-cargoplus-cloud/
+├── itran-common/            # 全局公共模块: BaseTenantEntity, Result/R, SecurityUtils, 统一异常
+├── itran-gateway/           # 微服务网关: 路由分发、全局鉴权、限流、Token 传递
+├── itran-modules/
+│   ├── itran-cargo-client/  # 对外暴露的 OpenFeign 接口定义与 DTO 契约 (只放接口，不放实现)
+│   └── itran-cargo-server/  # 真正的业务实现模块
+│       ├── controller/      # 控制器: CargoOrderController.java
+│       ├── service/         # 业务接口与实现: CargoOrderServiceImpl.java
+│       ├── mapper/          # 数据持久层: CargoOrderMapper.java + Mapper.xml
+│       └── dto/             # 参数对象: CargoOrderParam, CargoOrderVO (使用 MapStruct 转换)
+└── itran-admin/             # 管理端模块 (通常内嵌 AI 对话服务: modules/ai)</code></pre><h3 id="实体分层分工-为什么绝不能直接把-entity-返回给前端">实体分层分工（为什么绝不能直接把 Entity 返回给前端）</h3><ul>
+<li><strong>Entity</strong>：直接映射数据库物理表的持久化对象（严禁直接返回给前端，防止泄露密码或内部版本号）。</li>
+<li><strong>Param / DTO</strong>：前端向后端传递的入参对象（带有 <code>@NotNull</code>、<code>@Size</code> 校验注解）。</li>
+<li><strong>VO (View Object)</strong>：专门序列化返回给前端展示的对象，通过 <code>MapStruct</code> 高性能转换，仅暴露前端所需字段。</li>
+</ul>
+<hr>
+<h2 id="核心避坑指南-识别并优化-n-1-循环查询">核心避坑指南：识别并优化 N+1 循环查询</h2><p>这是前端转全栈在阅读或编写 Java 后端代码时，最容易发现也是最值得重构的重大性能隐患：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+  subgraph 灾难写法: 循环内逐条查询 (N+1 问题)
+    Q1["1. 执行 1 次 SQL: 查出 20 条运单列表 (SELECT * FROM cargo_order LIMIT 20)"] --> Loop["进入 Java for 循环遍历每一个运单"]
+    Loop --> Q2["运单 1: SELECT * FROM cargo_detail WHERE order_id = 1"]
+    Loop --> Q3["运单 2: SELECT * FROM cargo_detail WHERE order_id = 2"]
+    Loop --> Q4["运单 ...: 产生 20 次网络 I/O 往返！总耗时激增 20 倍！"]
+  end
+  style Q4 fill:#faa,stroke:#333,stroke-width:1px
+
+  subgraph 工业级重构: 收集 ID 批量查询并内存映射
+    B1["1. 执行 1 次 SQL: 查出 20 条运单"] --> B2["2. Java Stream 收集 ID: List<Long> ids = orders.stream().map(Order::getId)..."]
+    B2 --> B3["3. 执行第 2 次 SQL 批量拉取: SELECT * FROM cargo_detail WHERE order_id IN (1, 2, ...)"]
+    B3 --> B4["4. 内存高效分组: Map<Long, List<Detail>> map = details.stream().collect(groupingBy...)"]
+  end
+  style B4 fill:#dfd,stroke:#333,stroke-width:1px</pre></div><h3 id="重构前后的-java-代码对比">重构前后的 Java 代码对比</h3><pre><code class="language-java">// ❌ 存在严重 N+1 性能漏洞的代码
+public List&lt;CargoOrderVO&gt; getOrderListWithDetailsBad() {
+    List&lt;CargoOrderEntity&gt; orders = cargoOrderMapper.selectList(new QueryWrapper&lt;&gt;());
+    List&lt;CargoOrderVO&gt; voList = new ArrayList&lt;&gt;();
+    
+    for (CargoOrderEntity order : orders) {
+        CargoOrderVO vo = cargoOrderConverter.toVO(order);
+        // 致命：在循环内频繁执行数据库查询，若查出 100 条运单则触发 101 次 SQL！
+        List&lt;CargoDetailEntity&gt; details = cargoDetailMapper.selectList(
+            new LambdaQueryWrapper&lt;CargoDetailEntity&gt;().eq(CargoDetailEntity::getOrderId, order.getId())
+        );
+        vo.setDetails(details);
+        voList.add(vo);
+    }
+    return voList;
+}
+
+// ✅ 工业级高吞吐批量查询重构
+public List&lt;CargoOrderVO&gt; getOrderListWithDetailsGood() {
+    // 1. 单次查询获取运单主表
+    List&lt;CargoOrderEntity&gt; orders = cargoOrderMapper.selectList(new QueryWrapper&lt;&gt;());
+    if (orders.isEmpty()) return Collections.emptyList();
+
+    // 2. 收集运单 ID 集合
+    List&lt;Long&gt; orderIds = orders.stream()
+            .map(CargoOrderEntity::getId)
+            .collect(Collectors.toList());
+
+    // 3. 单次批量查询所有关联子表记录 (WHERE order_id IN (...))
+    List&lt;CargoDetailEntity&gt; allDetails = cargoDetailMapper.selectList(
+        new LambdaQueryWrapper&lt;CargoDetailEntity&gt;().in(CargoDetailEntity::getOrderId, orderIds)
+    );
+
+    // 4. 在 JVM 内存中利用 Map 分组 (纳秒级耗时)
+    Map&lt;Long, List&lt;CargoDetailEntity&gt;&gt; detailMap = allDetails.stream()
+            .collect(Collectors.groupingBy(CargoDetailEntity::getOrderId));
+
+    // 5. 高性能装配返回
+    return orders.stream().map(order -&gt; {
+        CargoOrderVO vo = cargoOrderConverter.toVO(order);
+        vo.setDetails(detailMap.getOrDefault(order.getId(), Collections.emptyList()));
+        return vo;
+    }).collect(Collectors.toList());
+}</code></pre><hr>
+<h2 id="揭秘-java-中的原生-ai-接入-spring-ai-与-flux-流式服务">揭秘 Java 中的原生 AI 接入：Spring AI 与 Flux 流式服务</h2><p>在现代企业微服务中（例如在 <code>itran-admin/modules/ai</code> 中），Java 团队通过 <strong>Spring AI</strong> 与 <strong>Reactor WebFlux</strong> 实现生产级流式响应。</p>
+<p>你会发现其底层与我们在第 06 章讲的 SSE 完全一致：</p>
+<pre><code class="language-java">package com.itran.admin.modules.ai.controller;
+
+import org.springframework.ai.chat.ChatResponse;
+import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.openai.OpenAiChatModel;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Flux;
+
+@RestController
+@RequestMapping(&quot;/admin/ai/chat&quot;)
+public class AiChatController {
+
+    private final OpenAiChatModel chatModel;
+
+    public AiChatController(OpenAiChatModel chatModel) {
+        this.chatModel = chatModel;
+    }
+
+    /**
+     * 原生返回 text/event-stream 响应流！
+     * 底层采用 Project Reactor 的 Flux 异步响应式流
+     */
+    @PostMapping(value = &quot;/stream&quot;, produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux&lt;String&gt; streamChat(@RequestBody ChatRequestDTO request) {
+        Prompt prompt = new Prompt(request.getMessage());
+        
+        // 异步非阻塞流式吐出每一个 Chunk
+        return chatModel.stream(prompt)
+                .map(chatResponse -&gt; {
+                    String content = chatResponse.getResult().getOutput().getContent();
+                    return content != null ? content : &quot;&quot;;
+                })
+                .doOnError(err -&gt; {
+                    // 监听流式异常日志
+                    log.error(&quot;Spring AI 流式输出发生异常&quot;, err);
+                });
+    }
+}</code></pre><p>读懂这段代码，你会立即顿悟：<strong>无论语言是 TypeScript 还是 Java，前端消费端接到的依然是标准的 SSE <code>text/event-stream</code>！前端用第 06 章封装的 <code>useChatStream</code> Hook，不需要做任何改动，就能无缝对接 Java 后端流式服务！</strong></p>
+<hr>
+<h2 id="协同排错自检清单">协同排错自检清单</h2><p>当你在企业日常开发中配合后端排查接口 Bug 时，请按以下顺序形成闭环证据链：</p>
+<ul>
+<li><input disabled="" type="checkbox"> <strong>多租户隔离检查</strong>：当前请求经过网关时，请求头 <code>tenant-id</code> 是否丢失？<code>TenantContext.getTenantId()</code> 是否在多线程异步调用中变成了 <code>null</code>？</li>
+<li><input disabled="" type="checkbox"> <strong>事务回滚有效性</strong>：查看 Service 方法上的 <code>@Transactional</code> 是否注明了 <code>rollbackFor = Exception.class</code>，内部是否误用 <code>try...catch</code> 把异常私自吞掉？</li>
+<li><input disabled="" type="checkbox"> <strong>Feign 跨服务超时</strong>：微服务调用链中是否由于某一个下游服务阻塞（如调用外部慢速大模型），导致 Nacos 网关触发 <code>ReadTimeout: 5000ms</code> 降级？</li>
+<li><input disabled="" type="checkbox"> <strong>SQL 与分页性能</strong>：通过日志检查最终执行的 SQL 语句，是否出现了循环 N+1 查询？分页是否走上了索引？</li>
+</ul>
+<hr>
+<h2 id="终章小结-打造你的高含金量-ai-全栈作品集">终章小结：打造你的高含金量 AI 全栈作品集</h2><p>学完本课程后，你已经从单纯的“页面交互编写者”，蜕变成为了兼具<strong>产品感知、服务端架构、存储与向量、高并发护城河、工业级 RAG 检索、受控 Agent 以及跨语言团队协作能力</strong>的生产级 AI 全栈工程师。</p>
+<p>不要在简历上罗列枯燥的技术名词，带着你贯穿全书打造的实战项目：</p>
+<blockquote>
+<p><strong>“带权限的企业知识库 AI 助手（Enterprise Knowledge Copilot）”</strong></p>
+</blockquote>
+<ul>
+<li>附带严密的数据库架构设计图与 DDL；</li>
+<li>附带 30 组黄金评测集的 Faithfulness 自动化质量度量报告；</li>
+<li>附带一份防范 Prompt 注入与悲观行锁防超卖的故障演练复盘记录；</li>
+<li>附带容器化一键部署编排文件与 CI/CD 质量流水线。</li>
+</ul>
+<p>这才是你在 AI 时代最坚实、最具说服力的专业工程底色！</p>
+
+      </article>
+
+      <!-- 底部上下章导航 -->
+      
+    <nav class="article-nav-pager" aria-label="文章上下导航">
+      <a href="./11-docker-cicd-and-reliability.html" class="pager-btn prev">
+              <span class="pager-label">◀ 上一章</span>
+              <span class="pager-title">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            </a>
+      <div></div>
+    </nav>
+  
+    </main>
+
+    <!-- 3. 右侧本章目录 (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-header">
+        <span>📑</span>
+        <span>本章目录</span>
+      </div>
+      <ul class="toc-list">
+        <!-- 由 juejin.js 自动根据文章内 h2, h3 提取并生成 -->
+      </ul>
+    </aside>
+  </div>
+</body>
+</html>

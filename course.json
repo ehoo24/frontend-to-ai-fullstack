@@ -1,0 +1,131 @@
+{
+  "schemaVersion": 1,
+  "slug": "frontend-to-ai-fullstack",
+  "title": "前端转 AI 全栈：从交互体验到生产级交付",
+  "subtitle": "建立能持续交付、可上线、能排错、控风险的端到端 AI 工程能力",
+  "description": "面向熟练前端开发者，以真实企业工程实践为线索，讲透后端工程、PostgreSQL 与 pgvector 关系向量存储、Redis 高并发护城河、生产级 SSE 流式服务、工业级 RAG 混合检索、自动化质量评测、受控 Agent 以及 Java 企业微服务协作。",
+  "duration": "35–45 小时",
+  "status": "available",
+  "lessons": [
+    {
+      "number": 1,
+      "title": "认知重塑：为什么会调用 API 不等于 AI 全栈",
+      "time": "75–90 分钟",
+      "summary": "从一起真实的前端直连 Token 泄漏事故切入，剖析玩具 Demo 与生产级系统的分水岭，建立四层能力模型与主次演进路线。",
+      "status": "available",
+      "href": "lessons/01-mindset-and-fullstack-boundary.html",
+      "markdown": "lessons/01-mindset-and-fullstack-boundary.md"
+    },
+    {
+      "number": 2,
+      "title": "服务端工程基石：REST 规范、参数校验与端到端类型契约",
+      "time": "80–100 分钟",
+      "summary": "结合 Fastify 与 Zod，实现编译期与运行时双重类型保护，建立统一错误响应与前后端共享类型架构。",
+      "status": "available",
+      "href": "lessons/02-fastify-rest-and-contract.html",
+      "markdown": "lessons/02-fastify-rest-and-contract.md"
+    },
+    {
+      "number": 3,
+      "title": "核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展",
+      "time": "90–120 分钟",
+      "summary": "掌握 PostgreSQL 关系规范化建模、悲观锁事务控制，并在同一库中启用 pgvector 与 HNSW 索引完成向量检索。",
+      "status": "available",
+      "href": "lessons/03-postgresql-modeling-and-pgvector.html",
+      "markdown": "lessons/03-postgresql-modeling-and-pgvector.md"
+    },
+    {
+      "number": 4,
+      "title": "高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列",
+      "time": "85–105 分钟",
+      "summary": "攻克缓存三大灾难，用 Redis + Lua 脚本实现毫秒级滑动窗口限流，并借助 BullMQ 异步剥离耗时的向量化任务。",
+      "status": "available",
+      "href": "lessons/04-redis-cache-ratelimit-and-queue.html",
+      "markdown": "lessons/04-redis-cache-ratelimit-and-queue.md"
+    },
+    {
+      "number": 5,
+      "title": "生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御",
+      "time": "85–105 分钟",
+      "summary": "搭建双 Token 轮转鉴权与多租户 RBAC 数据隔离，深入剖析 Prompt 注入与敏感词过滤的纵深防御体系。",
+      "status": "available",
+      "href": "lessons/05-auth-rbac-and-security.html",
+      "markdown": "lessons/05-auth-rbac-and-security.md"
+    },
+    {
+      "number": 6,
+      "title": "生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关",
+      "time": "90–120 分钟",
+      "summary": "深潜 SSE 协议，搭建安全的服务端大模型流式代理，解决前端中断时服务端必须及时切断模型推理防止 Token 跑飞的核心机制。",
+      "status": "available",
+      "href": "lessons/06-streaming-sse-and-llm-gateway.html",
+      "markdown": "lessons/06-streaming-sse-and-llm-gateway.md"
+    },
+    {
+      "number": 7,
+      "title": "结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环",
+      "time": "80–100 分钟",
+      "summary": "基于受限生成原理实现 100% 可靠的结构化 JSON 输出，掌握 Function Calling 工具调度与失败自愈循环。",
+      "status": "available",
+      "href": "lessons/07-structured-output-and-tool-calling.html",
+      "markdown": "lessons/07-structured-output-and-tool-calling.md"
+    },
+    {
+      "number": 8,
+      "title": "工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离",
+      "time": "95–130 分钟",
+      "summary": "告别玩具 RAG，实现 Markdown 递归切分、tsvector 关键词与 pgvector 语义双路召回、RRF 融合与角标来源溯源。",
+      "status": "available",
+      "href": "lessons/08-enterprise-rag-pipeline.html",
+      "markdown": "lessons/08-enterprise-rag-pipeline.md"
+    },
+    {
+      "number": 9,
+      "title": "从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性",
+      "time": "85–110 分钟",
+      "summary": "搭建黄金测试集，用 Ragas 度量真实性（Faithfulness）与拒答指标，建立单次请求 Token 计费与全链路追踪监控。",
+      "status": "available",
+      "href": "lessons/09-rag-evaluation-and-cost-observability.html",
+      "markdown": "lessons/09-rag-evaluation-and-cost-observability.md"
+    },
+    {
+      "number": 10,
+      "title": "受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制",
+      "time": "90–115 分钟",
+      "summary": "运用有限状态机约束自主 Agent 失控，建立三级工具权限体系，对高风险写入/删除操作实现人工挂起审核与恢复执行。",
+      "status": "available",
+      "href": "lessons/10-controlled-agent-and-human-in-the-loop.html",
+      "markdown": "lessons/10-controlled-agent-and-human-in-the-loop.md"
+    },
+    {
+      "number": 11,
+      "title": "容器化交付、CI/CD 自动化部署与生产环境故障复盘",
+      "time": "85–105 分钟",
+      "summary": "编写轻量安全的生产级 Dockerfile 与 GitHub Actions 质检门禁，演练数据库平滑迁移回滚，规范输出生产故障复盘报告。",
+      "status": "available",
+      "href": "lessons/11-docker-cicd-and-reliability.html",
+      "markdown": "lessons/11-docker-cicd-and-reliability.md"
+    },
+    {
+      "number": 12,
+      "title": "企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用",
+      "time": "90–120 分钟",
+      "summary": "打通 Node/TS 与 Java Spring Cloud 的架构心智映射，掌握 Controller 到 Mapper 的排障技巧，优化 N+1 查询并安全协作接入 Spring AI。",
+      "status": "available",
+      "href": "lessons/12-java-spring-cloud-collaboration.html",
+      "markdown": "lessons/12-java-spring-cloud-collaboration.md"
+    }
+  ],
+  "references": [
+    {
+      "title": "前端转 AI 全栈核心术语速查表",
+      "href": "reference/glossary.html",
+      "markdown": "reference/glossary.md"
+    },
+    {
+      "title": "生产上线前检查清单与排错速查",
+      "href": "reference/checklist.html",
+      "markdown": "reference/checklist.md"
+    }
+  ]
+}

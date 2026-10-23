@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>第 1 章 认知重塑：为什么会调用 API 不等于 AI 全栈 | 前端转 AI 全栈路线</title>
+  <link rel="stylesheet" href="../assets/juejin.css">
+  <!-- 引入 Mermaid 渲染架构流程图 -->
+  <script defer src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <!-- 引入交互脚本: Mac代码框、一键复制、文章目录滚动高亮、左侧章节联动 -->
+  <script defer src="../assets/juejin.js"></script>
+</head>
+<body>
+  <!-- 顶部导航条 -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-brand">
+        <span class="brand-badge">课程专栏</span>
+        <span>前端转 AI 全栈：从交互体验到生产级交付</span>
+      </a>
+      <div class="navbar-actions">
+        <a href="../index.html">返回课程总览 📚</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- 主布局 (三栏布局: 左侧专栏目录 + 中间正文 + 右侧本章目录) -->
+  <div class="layout-container">
+    <!-- 1. 左侧专栏章节导航 -->
+    
+    <aside class="chapters-sidebar">
+      <div class="chapters-sidebar-header">
+        <span>📚 专栏章节导航</span>
+        <span class="chapters-count-badge">12 讲全</span>
+      </div>
+      <nav class="chapters-nav-scroll" aria-label="课程章节列表">
+        
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块一：认知重塑与工程基石</div>
+        
+          <a href="./01-mindset-and-fullstack-boundary.html" class="chapter-nav-item active" title="认知重塑：为什么会调用 API 不等于 AI 全栈">
+            <span class="chapter-num">01</span>
+            <span class="chapter-title-text">认知重塑：为什么会调用 API 不等于 AI 全栈</span>
+            
+          </a>
+        
+          <a href="./02-fastify-rest-and-contract.html" class="chapter-nav-item " title="服务端工程基石：REST 规范、参数校验与端到端类型契约">
+            <span class="chapter-num">02</span>
+            <span class="chapter-title-text">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块二：后端工程与核心存储</div>
+        
+          <a href="./03-postgresql-modeling-and-pgvector.html" class="chapter-nav-item " title="核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展">
+            <span class="chapter-num">03</span>
+            <span class="chapter-title-text">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./04-redis-cache-ratelimit-and-queue.html" class="chapter-nav-item " title="高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列">
+            <span class="chapter-num">04</span>
+            <span class="chapter-title-text">高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</span>
+            
+          </a>
+        
+          <a href="./05-auth-rbac-and-security.html" class="chapter-nav-item " title="生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御">
+            <span class="chapter-num">05</span>
+            <span class="chapter-title-text">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块三：生产级 LLM 应用开发</div>
+        
+          <a href="./06-streaming-sse-and-llm-gateway.html" class="chapter-nav-item " title="生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关">
+            <span class="chapter-num">06</span>
+            <span class="chapter-title-text">生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./07-structured-output-and-tool-calling.html" class="chapter-nav-item " title="结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环">
+            <span class="chapter-num">07</span>
+            <span class="chapter-title-text">结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块四：企业级 RAG 架构与评测</div>
+        
+          <a href="./08-enterprise-rag-pipeline.html" class="chapter-nav-item " title="工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离">
+            <span class="chapter-num">08</span>
+            <span class="chapter-title-text">工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="./09-rag-evaluation-and-cost-observability.html" class="chapter-nav-item " title="从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性">
+            <span class="chapter-num">09</span>
+            <span class="chapter-title-text">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块五：受控 Agent 与生产运维</div>
+        
+          <a href="./10-controlled-agent-and-human-in-the-loop.html" class="chapter-nav-item " title="受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制">
+            <span class="chapter-num">10</span>
+            <span class="chapter-title-text">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            
+          </a>
+        
+          <a href="./11-docker-cicd-and-reliability.html" class="chapter-nav-item " title="容器化交付、CI/CD 自动化部署与生产环境故障复盘">
+            <span class="chapter-num">11</span>
+            <span class="chapter-title-text">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块六：企业级微服务协同</div>
+        
+          <a href="./12-java-spring-cloud-collaboration.html" class="chapter-nav-item " title="企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用">
+            <span class="chapter-num">12</span>
+            <span class="chapter-title-text">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            
+          </a>
+        
+      </div>
+    
+    <div class="chapter-group">
+      <div class="chapter-group-title">配套参考与手册</div>
+      
+        <a href="../reference/glossary.html" class="chapter-nav-item " title="前端转 AI 全栈核心术语速查表">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">前端转 AI 全栈核心术语速查表</span>
+        </a>
+      
+        <a href="../reference/checklist.html" class="chapter-nav-item " title="生产上线前检查清单与排错速查">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">生产上线前检查清单与排错速查</span>
+        </a>
+      
+    </div>
+  
+      </nav>
+    </aside>
+  
+
+    <!-- 2. 中间核心正文卡片 -->
+    <main class="article-main">
+      <header class="article-header">
+        <div class="article-category">
+          <span>📖 第 1 核心实战章节</span>
+        </div>
+        <h1 class="article-title">第 1 章 认知重塑：为什么会调用 API 不等于 AI 全栈</h1>
+        <div class="article-meta">
+          <div class="author-info">
+            <span class="author-avatar">AI</span>
+            <span>全栈技术教练</span>
+          </div>
+          <span>•</span>
+          <span>⏱️ 预计学习：75–90 分钟</span>
+          <span>•</span>
+          <span>📝 约 5749 字</span>
+          <span>•</span>
+          <span>🏷️ 生产级落地标准</span>
+        </div>
+      </header>
+
+      <!-- 一句话要点卡片 -->
+      <aside class="article-summary-card">
+        <strong>💡 本章核心要点：</strong>AI 应用的真正分水岭不在于前端页面写得有多炫，而在于能不能设计可靠的数据边界、控制成本与安全风险，并在故障发生时具备端到端的排错与自愈能力。
+      </aside>
+
+      <!-- 文章正文区域 -->
+      <article class="markdown-body">
+        <hr>
+<h2 id="先看一次惨烈的线上事故现场">先看一次惨烈的线上事故现场</h2><p>周五下午 4:30，某 SaaS 团队将他们用周末两个晚上赶出来的“AI 智能助理”发布到了线上。前端使用的是 Next.js 搭建的精美聊天界面，支持 Markdown 渲染、打字机动画和代码高亮。开发者在浏览器端通过 <code>fetch</code> 直接调用了 OpenAI 的 <code>chat/completions</code> 接口：</p>
+<pre><code class="language-typescript">// 典型的前端玩具级实现（千万不要在生产中使用！）
+export async function sendChatMessage(prompt: string) {
+  const response = await fetch(&quot;https://api.openai.com/v1/chat/completions&quot;, {
+    method: &quot;POST&quot;,
+    headers: {
+      &quot;Content-Type&quot;: &quot;application/json&quot;,
+      // 致命错误：API 密钥硬编码或暴露在前端环境变量中
+      &quot;Authorization&quot;: `Bearer ${process.env.NEXT_PUBLIC_OPENAI_API_KEY}`
+    },
+    body: JSON.stringify({
+      model: &quot;gpt-4o&quot;,
+      messages: [{ role: &quot;user&quot;, content: prompt }]
+    })
+  });
+  return response.json();
+}</code></pre><p>发布后不到两个小时，灾难发生了：</p>
+<ol>
+<li><strong>API Key 泄露与天价账单</strong>：黑客只需在浏览器按 <code>F12</code> 打开 Network 面板，或者在打包后的前端 JS 静态资源中搜索字符串，就轻而易举拿到了该团队的组织级 API Key。当天夜间，该密钥被自动脚本扫描并在境外暗网出售，黑客利用并发脚本疯狂刷取算力，短短 4 个小时内产生了数千美元的透支账单，直到绑定信用卡被银行风控冻结。</li>
+<li><strong>敏感数据穿透与跨租户越权</strong>：由于缺少服务端代理与数据过滤，一名内部测试员工在对话框输入：“请帮我整理下本季度全公司所有员工的绩效考核与薪资汇总”，大模型依据系统 Prompt 赋予的全部权限，直接将存放在云端上下文中的高管薪酬明细如实吐出。</li>
+<li><strong>接口并发雪崩与白屏</strong>：当全员推广消息发出后，数百名员工同时涌入点击提问。由于前端缺少防抖限流与并发排队，外部 API 瞬间触发 <code>429 Rate Limit Exceeded</code>，前端由于没有做统一异常兜底，用户界面整片崩溃报错（React 白屏）。</li>
+</ol>
+<p>这场事故给团队留下了血淋淋的教训：“<strong>会调模型接口 + 会写页面交互，根本不等于 AI 全栈。</strong>”</p>
+<hr>
+<h2 id="玩具-demo-与生产级系统的本质鸿沟">玩具 Demo 与生产级系统的本质鸿沟</h2><p>在本地个人电脑上开发一个演示 Demo，和将一个 AI 服务推向成千上万真实用户，两者面临的完全不是同一个技术维度。我们可以通过下表清晰看到玩具实现与工业级交付之间的核心鸿沟：</p>
+<div class="table-wrapper"><table>
+<thead>
+<tr>
+<th align="left">关注维度</th>
+<th align="left">玩具 Demo（新手思维）</th>
+<th align="left">生产级 AI 系统（全栈工程思维）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>密钥与网络</strong></td>
+<td align="left">前端直连或透传 API Key，密钥暴露在客户端 bundle 中。</td>
+<td align="left">密钥严格隔离在服务端受控内网，经由 BFF 安全网关代理转发。</td>
+</tr>
+<tr>
+<td align="left"><strong>数据边界与权限</strong></td>
+<td align="left">信任前端传递的全部参数，查询时不限制租户与用户归属。</td>
+<td align="left">服务端强行注入 <code>tenant_id</code> 与 <code>user_id</code>，细粒度 RBAC 校验。</td>
+</tr>
+<tr>
+<td align="left"><strong>交互与传输</strong></td>
+<td align="left">笨拙地等待 10–20 秒，一次性等待全量 JSON 返回。</td>
+<td align="left">基于 SSE（Server-Sent Events）毫秒级首字吐出，支持实时点击中断。</td>
+</tr>
+<tr>
+<td align="left"><strong>成本与风控</strong></td>
+<td align="left">无预算上限，无限重试，放任用户输入超长恶意上下文。</td>
+<td align="left">单次请求硬限制 <code>max_tokens</code>，滑动窗口限流，敏感词与注入拦截。</td>
+</tr>
+<tr>
+<td align="left"><strong>质量判断</strong></td>
+<td align="left">随机测试 3 个问题，主观觉得“效果挺惊艳”。</td>
+<td align="left">建立数十组黄金基准测试集，用自动化流水线计算幻觉率与相关度。</td>
+</tr>
+<tr>
+<td align="left"><strong>故障排查</strong></td>
+<td align="left">遇到报错看大模型猜原因，在控制台胡乱调试。</td>
+<td align="left">结构化 JSON 日志追踪，全链路 APM 监控，具备完备回滚复盘方案。</td>
+</tr>
+</tbody></table></div>
+<p>从上述对比可以看出：<strong>前端技术并不廉价，你的交互掌控力、对用户痛点的直觉理解是不可替代的宝贵资产；但如果你不能把控后端的数据、事务、限流与安全防线，你的 AI 产品就只是沙滩上的城堡，经不起真实生产环境的风吹草动。</strong></p>
+<hr>
+<h2 id="破局-ai-全栈的-四层能力模型">破局：AI 全栈的“四层能力模型”</h2><p>为了让转型路径清晰可度量，我们必须摒弃“东学一个框架、西看一篇推文”的零碎学习方式，将能力体系严密划分为由底至上的四层架构模型：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+  L1["1. 产品交付层 (Product Delivery)\n用户流程闭环 · 流式中断与重试 · 权限体验 · 引用溯源高亮"]
+  L2["2. 服务工程层 (Backend Engineering)\nREST 契约 · PostgreSQL 关系建模 · Redis 限流 · 事务并发控制"]
+  L3["3. AI 工程层 (AI Engineering)\n流式网关 · 结构化输出校验 · 工业级 RAG · 黄金评测集度量"]
+  L4["4. 生产运营层 (Production & Reliability)\n多阶段 Docker 构建 · CI/CD 自动化门禁 · 监控告警 · 故障演练与复盘"]
+
+  L1 --- L2
+  L2 --- L3
+  L3 --- L4</pre></div><h3 id="1-产品交付层-前端转型者的天然护城河">1. 产品交付层（前端转型者的天然护城河）</h3><p>这是纯后端或算法工程师往往最薄弱、而优秀前端最有心得的领域。</p>
+<ul>
+<li><strong>状态机的优雅管理</strong>：处理 Idle（空闲）、Connecting（建立流连接）、Streaming（正在打字）、Error（异常中继）、Aborted（主动中止）的复杂交互状态。</li>
+<li><strong>真实可用的引用溯源</strong>：AI 回答不能只是无凭无据的文字，必须将回答与后台知识库切片精准绑定，实现类似学术论文角标的交互体验，点击直接定位并高亮对应知识片段。</li>
+</ul>
+<h3 id="2-服务工程层-决定产品能否抗住真实世界冲击">2. 服务工程层（决定产品能否抗住真实世界冲击）</h3><ul>
+<li><strong>数据一致性与事务控制</strong>：当多个请求同时扣减用户 Token 配额或并发修改知识库时，如何通过 PostgreSQL 的悲观锁与事务隔离防止超卖？</li>
+<li><strong>防御性网关与限流</strong>：如何通过 Redis 挡在数据库和大模型前面，实现毫秒级的防刷限流与接口幂等性？</li>
+</ul>
+<h3 id="3-ai-工程层-决定模型能力能否转化为可靠业务">3. AI 工程层（决定模型能力能否转化为可靠业务）</h3><ul>
+<li><strong>从“感觉不错”转向“量化度量”</strong>：不再凭个人感性判断 Prompt 好坏，而是构建覆盖常规、边界与拒答场景的黄金测试集，用自动化指标（Faithfulness、Context Precision）来驱动迭代。</li>
+<li><strong>工业级 RAG 管线</strong>：克服单一向量检索的召回偏科，融合全文搜索与 Cross-Encoder 重排，把检索准确率推向极致。</li>
+</ul>
+<h3 id="4-生产运营层-决定团队能否安心睡觉">4. 生产运营层（决定团队能否安心睡觉）</h3><ul>
+<li><strong>可重复交付与可观测性</strong>：利用 Docker 抹平开发与生产环境差异；上线前具备平滑数据迁移与一键回滚能力；线上出现异常能够在 5 分钟内顺着 <code>trace_id</code> 定位日志根因。</li>
+</ul>
+<hr>
+<h2 id="技术主线与工具链选型-拒绝-二选一-陷阱">技术主线与工具链选型：拒绝“二选一”陷阱</h2><p>很多转型者最纠结的问题是：“我是该死磕 Node.js / TypeScript，还是立刻去改学 Python？”</p>
+<p>这其实是一个虚假的二选一陷阱。在现代化 AI 科技企业中，最健康的工程实践通常是<strong>主次分明、双线协同</strong>：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart LR
+  subgraph 主线: 业务端到端交付
+    TS["TypeScript 统一生态"] --> Fastify["Fastify / Next.js BFF"]
+    Fastify --> PG["PostgreSQL + pgvector"]
+    Fastify --> Redis["Redis 缓存与队列"]
+  end
+
+  subgraph 副线: 数据与科学评测
+    Py["Python 3.11+"] --> FastApi["FastAPI 脚本"]
+    FastApi --> Ragas["Ragas 自动化量化评测"]
+    FastApi --> ETL["批量数据清洗"]
+  end
+
+  Fastify <-->|内部 HTTP / 脚本调度| FastApi</pre></div><ul>
+<li><strong>业务主线：TypeScript + Fastify / Next.js</strong><br>充分复用你的 TypeScript 经验，前后端共享统一的类型定义文件（Shared Types），无需跨语言转换上下文，以最高效率完成用户认证、业务 CRUD、SSE 流式代理与前端渲染。</li>
+<li><strong>科学副线：Python + FastAPI / 脚本</strong><br>不用于写常规增删改查业务，而是用作“数据清洗与指标度量军火库”。利用 Python 生态中成熟的 Ragas 库、科学计算工具，编写离线运行的自动化质量回归评测脚本。</li>
+<li><strong>存储方案：PostgreSQL 16 + pgvector</strong><br>不要为了全栈而凭空增加组件复杂度。在同一套 PostgreSQL 中，既能使用成熟的 ACID 事务处理订单与用户，又能直接开启 <code>pgvector</code> 存储数十万条知识库切片向量。只有当向量规模突破千万级时，才需要考虑引入专用向量数据库。</li>
+</ul>
+<hr>
+<h2 id="ai-协作边界-让-ai-当高效加速器-不当最终决策者">AI 协作边界：让 AI 当高效加速器，不当最终决策者</h2><p>进入全栈开发后，很多同学会高度依赖 Cursor 或 GitHub Copilot 等生码工具。我们必须明确人与 AI 协作的安全红线：</p>
+<div class="mermaid-wrapper"><pre class="mermaid">flowchart TD
+  Human1["1. 架构师（人）: 明确业务约束、接口输入输出契约、异常流与安全边界"] --> AI1["2. AI 助手: 快速生成 CRUD 样板代码、SQL 查询草稿、TypeScript 类型定义与基础测试"]
+  AI1 --> Human2["3. 架构师（人）: 人工逐行审查事务边界、权限隔离、并发锁与潜在 N+1 漏洞"]
+  Human2 --> Test["4. 隔离测试环境运行静态扫描、安全规则检查与接口集成测试"]
+  Test --> Deploy["5. 小流量灰度发布并监控 APM 报错与链路日志"]</pre></div>
+      <div class="callout callout-warning">
+        <div class="callout-header">⚠️ 重要告警</div>
+        <p><strong>绝对不能把以下事项直接甩给 AI 决定</strong>：</p><ol>
+<li><strong>数据库迁移脚本（Migration）</strong>：AI 经常会在自动生成的变更脚本中执行危险的 <code>DROP COLUMN</code> 或未加并发锁的全局表重建，引发数据丢失。</li>
+<li><strong>越权检查与鉴权过滤</strong>：AI 默认倾向于只写“快乐路径（Happy Path）”，常常忽略在 SQL 查询中添加当前登录用户的 <code>tenant_id</code> 过滤。</li>
+<li><strong>生产删除与高危写操作</strong>：凡涉及批量软删除、状态变更、支付扣款的接口，必须由人工架构师显式核准。</li>
+</ol>
+      </div>
+    
+<hr>
+<h2 id="贯穿全书的主项目路线图-带权限的企业知识库-ai-助手">贯穿全书的主项目路线图：带权限的企业知识库 AI 助手</h2><p>为了杜绝孤立、割裂的技术点学习，本课程将以一个工业级主战项目贯穿全书——<strong>“带权限的企业知识库 AI 助手（Enterprise Knowledge Copilot）”</strong>。我们将伴随章节推进，亲手实现 4 次大版本跃迁：</p>
+<ul>
+<li><strong>V1（基础工程篇 · 第 02–05 章）</strong>：
+搭建 Fastify 后端骨架，完成用户注册登录、JWT 双 Token 轮转鉴权、PostgreSQL 关系建模与事务控制、Redis 毫秒级滑动窗口限流、多租户 RBAC 权限隔离。</li>
+<li><strong>V2（模型交付篇 · 第 06–07 章）</strong>：
+构建服务端 LLM 代理网关，实现原生 SSE 流式打字机传输；支持前端实时中断并切断上游推理以止损 Token；集成 Zod 结构化输出与可靠 Function Calling 工具调度。</li>
+<li><strong>V3（智能中枢篇 · 第 08–09 章）</strong>：
+攻克工业级 RAG 架构，实现 Markdown 递归分块、关键词全文搜索 + pgvector 语义双路召回、RRF 互惠排名融合与重排；构建 30+ 用例的黄金评测集，实现自动化 Faithfulness 量化质检。</li>
+<li><strong>V4（生产运维篇 · 第 10–12 章）</strong>：
+升级为受控业务 Agent 架构，设计三级工具权限与 Human-in-the-Loop 人工审批卡片；完成多阶段 Docker 容器化打包、GitHub Actions 自动化 CI/CD；打通与企业 Java 微服务调用链协同及故障排查通道。</li>
+</ul>
+<hr>
+<h2 id="章节自测与验收练习">章节自测与验收练习</h2><p>在进入下一章前，请尝试在个人笔记本上回答并动手验证以下 3 个问题：</p>
+<ol>
+<li><strong>架构排错</strong>：如果将 OpenAI API Key 放在前端项目的 <code>.env.local</code> 并在客户端代码通过 <code>process.env.NEXT_PUBLIC_OPENAI_API_KEY</code> 读取，黑客可以通过哪两种极其简单的途径拿到该 Key？</li>
+<li><strong>状态边界</strong>：画出一次流式 AI 对话中，前端界面需要呈现的至少 5 种交互状态，并说明当网络在第 15 个字突发中断时，界面应向用户展示什么提示，而不是直接崩溃。</li>
+<li><strong>能力对齐</strong>：对照本章给出的“四层能力模型”，列出你当前最薄弱的 2 个具体技术项（例如：事务并发锁、pgvector 索引优化），并记下你期望在后续哪个章节攻克它。</li>
+</ol>
+
+      </article>
+
+      <!-- 底部上下章导航 -->
+      
+    <nav class="article-nav-pager" aria-label="文章上下导航">
+      <div></div>
+      <a href="./02-fastify-rest-and-contract.html" class="pager-btn next">
+              <span class="pager-label">下一章 ▶</span>
+              <span class="pager-title">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            </a>
+    </nav>
+  
+    </main>
+
+    <!-- 3. 右侧本章目录 (TOC) -->
+    <aside class="toc-sidebar">
+      <div class="toc-header">
+        <span>📑</span>
+        <span>本章目录</span>
+      </div>
+      <ul class="toc-list">
+        <!-- 由 juejin.js 自动根据文章内 h2, h3 提取并生成 -->
+      </ul>
+    </aside>
+  </div>
+</body>
+</html>

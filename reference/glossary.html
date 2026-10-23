@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>前端转 AI 全栈核心术语速查表 (Glossary) | 配套资料</title>
+  <link rel="stylesheet" href="../assets/juejin.css">
+  <script defer src="../assets/juejin.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-brand">
+        <span class="brand-badge">配套参考手册</span>
+        <span>前端转 AI 全栈：从交互体验到生产级交付</span>
+      </a>
+      <div class="navbar-actions">
+        <a href="../index.html">返回课程总览 📚</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout-container">
+    <!-- 1. 左侧专栏章节导航 -->
+    
+    <aside class="chapters-sidebar">
+      <div class="chapters-sidebar-header">
+        <span>📚 专栏章节导航</span>
+        <span class="chapters-count-badge">12 讲全</span>
+      </div>
+      <nav class="chapters-nav-scroll" aria-label="课程章节列表">
+        
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块一：认知重塑与工程基石</div>
+        
+          <a href="../lessons/01-mindset-and-fullstack-boundary.html" class="chapter-nav-item " title="认知重塑：为什么会调用 API 不等于 AI 全栈">
+            <span class="chapter-num">01</span>
+            <span class="chapter-title-text">认知重塑：为什么会调用 API 不等于 AI 全栈</span>
+            
+          </a>
+        
+          <a href="../lessons/02-fastify-rest-and-contract.html" class="chapter-nav-item " title="服务端工程基石：REST 规范、参数校验与端到端类型契约">
+            <span class="chapter-num">02</span>
+            <span class="chapter-title-text">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块二：后端工程与核心存储</div>
+        
+          <a href="../lessons/03-postgresql-modeling-and-pgvector.html" class="chapter-nav-item " title="核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展">
+            <span class="chapter-num">03</span>
+            <span class="chapter-title-text">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="../lessons/04-redis-cache-ratelimit-and-queue.html" class="chapter-nav-item " title="高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列">
+            <span class="chapter-num">04</span>
+            <span class="chapter-title-text">高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</span>
+            
+          </a>
+        
+          <a href="../lessons/05-auth-rbac-and-security.html" class="chapter-nav-item " title="生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御">
+            <span class="chapter-num">05</span>
+            <span class="chapter-title-text">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块三：生产级 LLM 应用开发</div>
+        
+          <a href="../lessons/06-streaming-sse-and-llm-gateway.html" class="chapter-nav-item " title="生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关">
+            <span class="chapter-num">06</span>
+            <span class="chapter-title-text">生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="../lessons/07-structured-output-and-tool-calling.html" class="chapter-nav-item " title="结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环">
+            <span class="chapter-num">07</span>
+            <span class="chapter-title-text">结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块四：企业级 RAG 架构与评测</div>
+        
+          <a href="../lessons/08-enterprise-rag-pipeline.html" class="chapter-nav-item " title="工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离">
+            <span class="chapter-num">08</span>
+            <span class="chapter-title-text">工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="../lessons/09-rag-evaluation-and-cost-observability.html" class="chapter-nav-item " title="从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性">
+            <span class="chapter-num">09</span>
+            <span class="chapter-title-text">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块五：受控 Agent 与生产运维</div>
+        
+          <a href="../lessons/10-controlled-agent-and-human-in-the-loop.html" class="chapter-nav-item " title="受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制">
+            <span class="chapter-num">10</span>
+            <span class="chapter-title-text">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            
+          </a>
+        
+          <a href="../lessons/11-docker-cicd-and-reliability.html" class="chapter-nav-item " title="容器化交付、CI/CD 自动化部署与生产环境故障复盘">
+            <span class="chapter-num">11</span>
+            <span class="chapter-title-text">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块六：企业级微服务协同</div>
+        
+          <a href="../lessons/12-java-spring-cloud-collaboration.html" class="chapter-nav-item " title="企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用">
+            <span class="chapter-num">12</span>
+            <span class="chapter-title-text">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            
+          </a>
+        
+      </div>
+    
+    <div class="chapter-group">
+      <div class="chapter-group-title">配套参考与手册</div>
+      
+        <a href="./glossary.html" class="chapter-nav-item active" title="前端转 AI 全栈核心术语速查表">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">前端转 AI 全栈核心术语速查表</span>
+        </a>
+      
+        <a href="./checklist.html" class="chapter-nav-item " title="生产上线前检查清单与排错速查">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">生产上线前检查清单与排错速查</span>
+        </a>
+      
+    </div>
+  
+      </nav>
+    </aside>
+  
+
+    <!-- 2. 中间核心正文卡片 -->
+    <main class="article-main">
+      <header class="article-header">
+        <div class="article-category">
+          <span>📚 参考手册与速查清单</span>
+        </div>
+        <h1 class="article-title">前端转 AI 全栈核心术语速查表 (Glossary)</h1>
+      </header>
+
+      <article class="markdown-body">
+        <p>本速查表收录《前端转 AI 全栈：从交互体验到生产级交付》全课程涉及的核心架构、后端工程与 AI 专用名词，供随时查阅与复核。</p>
+<hr>
+<h2 id="一-架构与服务工程术语">一、架构与服务工程术语</h2><h3 id="bff-backend-for-frontend">BFF (Backend for Frontend)</h3><p>服务于前端的后端层。通常由前端或全栈团队采用 Node.js/Next.js/Fastify 维护，负责聚合下游微服务数据、裁剪字段、维护用户会话，并作为安全网关调用大模型，防止敏感凭据外泄至浏览器端。</p>
+<h3 id="幂等性-idempotency">幂等性 (Idempotency)</h3><p>一个 HTTP 接口无论被重复调用多少次，其对系统状态产生的副作用均与单次调用一致。例如：携带同一个 <code>Idempotency-Key</code> 的支付或任务创建请求，第二次执行时直接返回第一次的结果，杜绝重复扣费或重复创建。</p>
+<h3 id="悲观锁-pessimistic-locking-select-for-update">悲观锁 (Pessimistic Locking / SELECT ... FOR UPDATE)</h3><p>在关系型数据库事务中，为防止多个并发请求同时修改同一行数据（如同时扣减用户 Token 余额导致超卖），在读取数据时显式加行级互斥锁，直到当前事务提交（COMMIT）后才释放。</p>
+<h3 id="滑动窗口限流-sliding-window-rate-limiting">滑动窗口限流 (Sliding Window Rate Limiting)</h3><p>一种比固定窗口更平滑的限流算法。通常利用 Redis 的有序集合（Sorted Set / ZSET）记录每次请求的时间戳，精确统计“当前时间向前推移 1 分钟内的总请求数”，杜绝在两个相邻窗口临界点被双倍突发流量打垮的情况。</p>
+<hr>
+<h2 id="二-llm-与-ai-工程术语">二、LLM 与 AI 工程术语</h2><h3 id="sse-server-sent-events">SSE (Server-Sent Events)</h3><p>一种基于单向长连接的 HTTP 服务端推送技术（<code>Content-Type: text/event-stream</code>）。相比 WebSocket 的双向开销，SSE 更轻量，完美契合 LLM“客户端发起一次问答，服务端持续流式逐字回传”的业务场景。</p>
+<h3 id="ttft-time-to-first-token">TTFT (Time To First Token)</h3><p>首字生成延迟，即从用户点击“发送”到界面打印出第一个字符的时间间隔。流式问答的核心目标就是将 TTFT 压低至 500ms 左右，大幅降低用户的等待焦虑。</p>
+<h3 id="结构化输出-structured-outputs">结构化输出 (Structured Outputs)</h3><p>一种通过大模型解码约束（Constrained Decoding）技术，强制模型 100% 遵守给定的 JSON Schema 格式输出，彻底解决传统 Prompt 偶发输出 Markdown 代码块或多余解释文字导致程序反序列化崩溃的问题。</p>
+<h3 id="pgvector">pgvector</h3><p>PostgreSQL 的开源向量扩展插件。允许在常规关系型数据表中直接新增 <code>vector</code> 字段，并支持使用 HNSW（分层导航小世界）或 IVFFlat 索引进行极速余弦距离或欧氏距离近似最近邻（ANN）检索。</p>
+<h3 id="混合检索-hybrid-search">混合检索 (Hybrid Search)</h3><p>将基于关键词的稀疏检索（如 PostgreSQL <code>tsvector</code> 全文检索，擅长精准匹配零件型号、专有名词、API 名称）与基于语义的密集检索（Embedding 向量余弦相似度，擅长同义词意图匹配）相结合的双路召回策略。</p>
+<h3 id="rrf-reciprocal-rank-fusion">RRF (Reciprocal Rank Fusion)</h3><p>互惠排名融合算法。用于将全文搜索和向量检索两份不同的排名列表无缝合并。公式为：
+[
+RRF_Score(d) = \sum_{m \in M} \frac{1}{k + r_m(d)}
+]
+其中 (k) 通常取 60，能有效平衡不同评分维度的绝对数值差异，大幅提升召回稳定性。</p>
+<h3 id="真实性-faithfulness-与幻觉度量">真实性 (Faithfulness) 与幻觉度量</h3><p>RAG 质量评价的核心指标。衡量模型给出的回答是否严格来源于检索到的上下文片段（Context Chunks）。如果回答中包含了上下文中未提及的虚构断言，则判定产生幻觉，Faithfulness 分数降低。</p>
+<hr>
+<h2 id="三-微服务与协同术语">三、微服务与协同术语</h2><h3 id="feign">Feign</h3><p>声明式 Web 服务客户端（常见于 Spring Cloud 体系）。开发者只需定义一个带有注解的 Java 接口，Feign 就会在运行时自动生成跨微服务的 HTTP 调用、序列化与超时重试代码。</p>
+<h3 id="n-1-查询问题">N+1 查询问题</h3><p>在 ORM（如 MyBatis-Plus 或 Hibernate）中极易发生的性能缺陷：先执行 1 条 SQL 查出 20 条主记录，然后在代码循环中对每条记录各自执行 1 条 SQL 查询关联详情，总计引发 21 次数据库网络 I/O。解决方案为批量查询（<code>WHERE id IN (...)</code>）并在内存中通过 Map 关联。</p>
+<h3 id="多租户上下文-tenantcontext">多租户上下文 (TenantContext)</h3><p>在企业级 SaaS 系统中，通过线程本地变量（<code>ThreadLocal</code>）或上下文拦截器，将当前登录用户所属的企业/租户 ID 隐式向下传递，并由 MyBatis 拦截器自动在所有 SQL 语句后追加 <code>WHERE tenant_id = ?</code>，防止跨租户越权。</p>
+
+      </article>
+    </main>
+
+    <!-- 3. 右侧速查目录 -->
+    <aside class="toc-sidebar">
+      <div class="toc-header">
+        <span>📑</span>
+        <span>速查目录</span>
+      </div>
+      <ul class="toc-list"></ul>
+    </aside>
+  </div>
+</body>
+</html>

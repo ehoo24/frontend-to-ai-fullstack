@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>生产上线前检查清单与排错速查 (Checklist) | 配套资料</title>
+  <link rel="stylesheet" href="../assets/juejin.css">
+  <script defer src="../assets/juejin.js"></script>
+</head>
+<body>
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="navbar-brand">
+        <span class="brand-badge">配套参考手册</span>
+        <span>前端转 AI 全栈：从交互体验到生产级交付</span>
+      </a>
+      <div class="navbar-actions">
+        <a href="../index.html">返回课程总览 📚</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout-container">
+    <!-- 1. 左侧专栏章节导航 -->
+    
+    <aside class="chapters-sidebar">
+      <div class="chapters-sidebar-header">
+        <span>📚 专栏章节导航</span>
+        <span class="chapters-count-badge">12 讲全</span>
+      </div>
+      <nav class="chapters-nav-scroll" aria-label="课程章节列表">
+        
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块一：认知重塑与工程基石</div>
+        
+          <a href="../lessons/01-mindset-and-fullstack-boundary.html" class="chapter-nav-item " title="认知重塑：为什么会调用 API 不等于 AI 全栈">
+            <span class="chapter-num">01</span>
+            <span class="chapter-title-text">认知重塑：为什么会调用 API 不等于 AI 全栈</span>
+            
+          </a>
+        
+          <a href="../lessons/02-fastify-rest-and-contract.html" class="chapter-nav-item " title="服务端工程基石：REST 规范、参数校验与端到端类型契约">
+            <span class="chapter-num">02</span>
+            <span class="chapter-title-text">服务端工程基石：REST 规范、参数校验与端到端类型契约</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块二：后端工程与核心存储</div>
+        
+          <a href="../lessons/03-postgresql-modeling-and-pgvector.html" class="chapter-nav-item " title="核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展">
+            <span class="chapter-num">03</span>
+            <span class="chapter-title-text">核心数据存储：PostgreSQL 关系建模、事务与 pgvector 向量扩展</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="../lessons/04-redis-cache-ratelimit-and-queue.html" class="chapter-nav-item " title="高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列">
+            <span class="chapter-num">04</span>
+            <span class="chapter-title-text">高并发护城河：Redis 缓存穿透防御、滑动窗口限流与轻量任务队列</span>
+            
+          </a>
+        
+          <a href="../lessons/05-auth-rbac-and-security.html" class="chapter-nav-item " title="生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御">
+            <span class="chapter-num">05</span>
+            <span class="chapter-title-text">生产级安全防护：JWT 认证、RBAC 细粒度权限与 AI 注入防御</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块三：生产级 LLM 应用开发</div>
+        
+          <a href="../lessons/06-streaming-sse-and-llm-gateway.html" class="chapter-nav-item " title="生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关">
+            <span class="chapter-num">06</span>
+            <span class="chapter-title-text">生产级 LLM 服务：SSE 流式长连接、AbortSignal 实时中断与代理网关</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="../lessons/07-structured-output-and-tool-calling.html" class="chapter-nav-item " title="结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环">
+            <span class="chapter-num">07</span>
+            <span class="chapter-title-text">结构化输出与受控工具调用：Zod Schema 校验与业务逻辑闭环</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块四：企业级 RAG 架构与评测</div>
+        
+          <a href="../lessons/08-enterprise-rag-pipeline.html" class="chapter-nav-item " title="工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离">
+            <span class="chapter-num">08</span>
+            <span class="chapter-title-text">工业级 RAG 检索管线：清洗切分、混合召回、重排与权限隔离</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+          <a href="../lessons/09-rag-evaluation-and-cost-observability.html" class="chapter-nav-item " title="从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性">
+            <span class="chapter-num">09</span>
+            <span class="chapter-title-text">从“感觉不错”到数据量化：RAG 黄金评测集与成本可观测性</span>
+            <span class="chapter-tag-mini">深度</span>
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块五：受控 Agent 与生产运维</div>
+        
+          <a href="../lessons/10-controlled-agent-and-human-in-the-loop.html" class="chapter-nav-item " title="受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制">
+            <span class="chapter-num">10</span>
+            <span class="chapter-title-text">受控业务 Agent：状态机、工具白名单与 Human-in-the-Loop 审核机制</span>
+            
+          </a>
+        
+          <a href="../lessons/11-docker-cicd-and-reliability.html" class="chapter-nav-item " title="容器化交付、CI/CD 自动化部署与生产环境故障复盘">
+            <span class="chapter-num">11</span>
+            <span class="chapter-title-text">容器化交付、CI/CD 自动化部署与生产环境故障复盘</span>
+            
+          </a>
+        
+      </div>
+    
+      <div class="chapter-group">
+        <div class="chapter-group-title">模块六：企业级微服务协同</div>
+        
+          <a href="../lessons/12-java-spring-cloud-collaboration.html" class="chapter-nav-item " title="企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用">
+            <span class="chapter-num">12</span>
+            <span class="chapter-title-text">企业级微服务协同：读懂 Spring Cloud、Feign、租户隔离与 Spring AI 流式调用</span>
+            
+          </a>
+        
+      </div>
+    
+    <div class="chapter-group">
+      <div class="chapter-group-title">配套参考与手册</div>
+      
+        <a href="./glossary.html" class="chapter-nav-item " title="前端转 AI 全栈核心术语速查表">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">前端转 AI 全栈核心术语速查表</span>
+        </a>
+      
+        <a href="./checklist.html" class="chapter-nav-item active" title="生产上线前检查清单与排错速查">
+          <span class="chapter-num">附</span>
+          <span class="chapter-title-text">生产上线前检查清单与排错速查</span>
+        </a>
+      
+    </div>
+  
+      </nav>
+    </aside>
+  
+
+    <!-- 2. 中间核心正文卡片 -->
+    <main class="article-main">
+      <header class="article-header">
+        <div class="article-category">
+          <span>📚 参考手册与速查清单</span>
+        </div>
+        <h1 class="article-title">生产上线前检查清单与排错速查 (Checklist)</h1>
+      </header>
+
+      <article class="markdown-body">
+        <p>在将任何全栈 AI 应用发布至测试环境或正式生产环境前，必须逐项核对以下四类关键指标。</p>
+<hr>
+<h2 id="一-数据与服务工程门禁">一、数据与服务工程门禁</h2><ul>
+<li><input disabled="" type="checkbox"> <strong>数据库索引检查</strong>：所有高频 <code>WHERE</code> 条件字段、外键、排序字段以及向量字段是否均建立了恰当索引（B-Tree 或 pgvector HNSW 索引）？</li>
+<li><input disabled="" type="checkbox"> <strong>数据库连接池</strong>：ORM 连接池上限是否根据容器规格设置（如 <code>max: 20</code>），连接泄漏超时（<code>idleTimeoutMillis</code>）是否配置？</li>
+<li><input disabled="" type="checkbox"> <strong>事务锁安全</strong>：涉及账户扣款、Token 扣减等写操作，是否使用了 <code>SELECT ... FOR UPDATE</code> 悲观锁或乐观锁防并发超卖？</li>
+<li><input disabled="" type="checkbox"> <strong>请求超时与熔断</strong>：所有对外部上游（OpenAI、第三方微服务）的 HTTP 调用是否均显式配置了连接超时（<code>timeout: 10000</code>）？</li>
+<li><input disabled="" type="checkbox"> <strong>接口幂等保护</strong>：核心写入接口是否支持 <code>Idempotency-Key</code> 请求头并在 Redis 中做了状态防重？</li>
+<li><input disabled="" type="checkbox"> <strong>优雅停机 (Graceful Shutdown)</strong>：Node.js 进程在收到 <code>SIGTERM</code> 信号时，是否会等待未完成的长连接并在 10 秒内优雅关闭数据库连接池？</li>
+</ul>
+<hr>
+<h2 id="二-安全与权限防御门禁">二、安全与权限防御门禁</h2><ul>
+<li><input disabled="" type="checkbox"> <strong>敏感密钥隔离</strong>：前端生产代码 bundle 中是否 100% 杜绝了 <code>OPENAI_API_KEY</code> 等敏感环境变量？</li>
+<li><input disabled="" type="checkbox"> <strong>服务端强制鉴权</strong>：每个受保护的 API 接口是否在服务端拦截器中验证了 JWT 有效性，而不是只靠前端隐藏操作按钮？</li>
+<li><input disabled="" type="checkbox"> <strong>多租户越权防护</strong>：所有数据库查询与向量检索 SQL 中，是否均强制绑定了当前登录用户的 <code>tenant_id</code>，防止越权拉取其他租户知识库？</li>
+<li><input disabled="" type="checkbox"> <strong>Prompt 注入预过滤</strong>：是否针对用户输入做了敏感指令（如 <code>ignore previous instructions</code>、<code>system prompt</code>）的正则特征扫描与风险阻断？</li>
+<li><input disabled="" type="checkbox"> <strong>Agent 工具权限白名单</strong>：破坏性操作（删除、退款、修改全局配置）是否默认禁止 AI 自动执行，必须走人工审核（Human-in-the-Loop）？</li>
+</ul>
+<hr>
+<h2 id="三-ai-质量与成本监控门禁">三、AI 质量与成本监控门禁</h2><ul>
+<li><input disabled="" type="checkbox"> <strong>SSE 请求中断释放</strong>：客户端点击“停止生成”或关闭网页时，服务端是否监听到连接关闭并立即调用 <code>AbortController.abort()</code> 掐断模型推理？</li>
+<li><input disabled="" type="checkbox"> <strong>Token 预算与单次硬上限</strong>：模型请求是否设置了严格的 <code>max_tokens</code>，防止死循环或恶意输入耗尽账户余额？</li>
+<li><input disabled="" type="checkbox"> <strong>黄金测试集回归</strong>：最近一次代码或 Prompt 变更后，是否在至少 30 组标注问答样本上运行了自动化评测，Faithfulness 得分是否 <code>&gt;= 0.85</code>？</li>
+<li><input disabled="" type="checkbox"> <strong>优雅拒答机制</strong>：当检索到的上下文片段与用户提问无关时，模型是否能礼貌且明确地拒答，而不是一本正经地编造假答案？</li>
+<li><input disabled="" type="checkbox"> <strong>来源溯源高亮</strong>：最终输出结果中是否附带真实的知识库文档名称与切片序号，前端能否点击定位到引用来源？</li>
+</ul>
+<hr>
+<h2 id="四-生产运维与可观测性门禁">四、生产运维与可观测性门禁</h2><ul>
+<li><input disabled="" type="checkbox"> <strong>健康检查端点</strong>：服务端是否提供了 <code>/healthz</code> 接口，能够探测进程存活以及数据库/Redis 的连通性？</li>
+<li><input disabled="" type="checkbox"> <strong>结构化日志</strong>：线上日志是否统一为 JSON 格式，且每次请求包含全局唯一的 <code>trace_id</code>？</li>
+<li><input disabled="" type="checkbox"> <strong>容器非 Root 运行</strong>：Dockerfile 中是否配置了 <code>USER node</code> 运行应用，杜绝容器越权逃逸风险？</li>
+<li><input disabled="" type="checkbox"> <strong>数据库可回滚演练</strong>：本次版本引入的数据库表结构变更，是否事先在预发环境演练过一键 <code>down</code> 回滚并验证数据完好？</li>
+<li><input disabled="" type="checkbox"> <strong>异常指标告警</strong>：Sentry 或 APM 平台是否配置了阈值告警（如：HTTP 5xx 突增、Token 消耗速率突增、平均延迟超过 5 秒）？</li>
+</ul>
+
+      </article>
+    </main>
+
+    <!-- 3. 右侧速查目录 -->
+    <aside class="toc-sidebar">
+      <div class="toc-header">
+        <span>📑</span>
+        <span>速查目录</span>
+      </div>
+      <ul class="toc-list"></ul>
+    </aside>
+  </div>
+</body>
+</html>

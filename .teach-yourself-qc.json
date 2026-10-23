@@ -1,0 +1,24 @@
+{
+  "requiredPaths": [
+    "workspace/MISSION.md",
+    "workspace/RESOURCES.md",
+    "workspace/COURSE-GENERATION-SPEC.md",
+    "workspace/COURSE-BLUEPRINT.md",
+    "workspace/NOTES.md",
+    "lessons"
+  ],
+  "contentRoots": ["index.html", "course.json", "lessons", "reference"],
+  "forbiddenMermaidTypes": ["mindmap"],
+  "allowedExternalUrlPrefixes": [
+    "https://github.com",
+    "https://fastify.dev",
+    "https://www.postgresql.org",
+    "https://redis.io",
+    "https://platform.openai.com",
+    "https://docs.docker.com",
+    "https://spring.io",
+    "https://chokcoco.github.io",
+    "https://cdn.jsdelivr.net"
+  ],
+  "unregisteredExternalUrlSeverity": "warning"
+}
